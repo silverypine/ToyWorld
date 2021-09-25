@@ -1,5 +1,8 @@
 package com.scit.toyworld.dao;
 
-public interface EmpMapper {
+import com.scit.toyworld.vo.EmpVO;
 
+public interface EmpMapper {
+	
+	public int join(EmpVO emp);
 }

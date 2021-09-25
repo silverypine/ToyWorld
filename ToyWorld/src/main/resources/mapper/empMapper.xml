@@ -5,4 +5,15 @@
 
 <mapper namespace="com.scit.toyworld.dao.EmpMapper">
 
+<insert id="join" parameterType="emp">
+insert into
+	toy_employee(
+		empid
+		,emppw
+	)values(
+		#{empid}
+		,#{emppw}
+	)
+</insert>
+
 </mapper>
