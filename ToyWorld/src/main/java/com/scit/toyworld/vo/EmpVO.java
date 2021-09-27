@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class EmpVO {
 	
-	private String empid;
-	private String emppw;
+	private String empId;
+	private String empPw;
 }

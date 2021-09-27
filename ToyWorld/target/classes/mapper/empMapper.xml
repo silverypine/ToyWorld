@@ -11,8 +11,8 @@ insert into
 		empid
 		,emppw
 	)values(
-		#{empid}
-		,#{emppw}
+		#{empId}
+		,#{empPw}
 	)
 </insert>
 
@@ -23,7 +23,7 @@ select
 from
 	toy_employee
 where
-	empid = #{empid}
+	empid = #{empId}
 </select>
 
 </mapper>
