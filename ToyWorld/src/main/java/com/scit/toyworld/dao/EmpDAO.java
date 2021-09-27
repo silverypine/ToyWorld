@@ -23,11 +23,11 @@ public class EmpDAO {
 		return cnt;
 	}
 	
-	public EmpVO login(String empid) {
+	public EmpVO login(String empId) {
 		EmpVO emp = null;
 		try {
 			EmpMapper mapper = ss.getMapper(EmpMapper.class);
-			emp = mapper.login(empid);
+			emp = mapper.login(empId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

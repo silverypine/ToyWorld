@@ -34,9 +34,9 @@
     
     <script type="text/javascript">
     	function formCheck() {
-    		let id = $("#empid").val();
-    		let pw = $("#emppw").val();
-    		let checkPW = $("#checkPW").val();
+    		let id = $("#empId").val();
+    		let pw = $("#empPw").val();
+    		let checkPW = $("#checkPw").val();
     		
     		if (id == "") {
     			alert("Please enter your ID.");
@@ -83,16 +83,16 @@
                             
                             <form action="/emp/join" method="post" onsubmit="return formCheck();" class="user">
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="empid"
-                                        name="empid" placeholder="ID">
+                                    <input type="text" class="form-control form-control-user" id="empId"
+                                        name="empId" placeholder="ID">
                                 </div>
                                 <div class="form-group">
                                     <input type="password" class="form-control form-control-user"
-                                        id="emppw" name="emppw" placeholder="Password">
+                                        id="empPw" name="empPw" placeholder="Password">
                                 </div>
                                 <div class="form-group">
                                     <input type="password" class="form-control form-control-user"
-                                        id="checkPW" placeholder="Repeat Password">
+                                        id="checkPw" placeholder="Repeat Password">
                                 </div>
                                 <input type="submit" class="btn btn-primary btn-user btn-block" value="Register Account">
                             </form>

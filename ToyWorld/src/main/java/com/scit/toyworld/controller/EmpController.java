@@ -33,4 +33,9 @@ public class EmpController {
 	public String login(EmpVO inputData) {
 		return sv.login(inputData);
 	}
+	
+	@RequestMapping(value = "/emp/logout", method = RequestMethod.GET)
+	public String logout() {
+		return sv.logout();
+	}
 }

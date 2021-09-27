@@ -25,8 +25,8 @@
     <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
 	<script type="text/javascript">
 		function formCheck() {
-			let id = $("#empid").val();
-			let pw = $("#emppw").val();
+			let id = $("#empId").val();
+			let pw = $("#empPw").val();
 			
 			if (id == "") {
 				alert("Please enter your ID.");
@@ -66,11 +66,11 @@
                                     <form class="user" action="/emp/login" method="post" onsubmit="return formCheck();">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
-                                                id="empid" name="empid" placeholder="ID">
+                                                id="empId" name="empId" placeholder="ID">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="emppw" name="emppw" placeholder="Password">
+                                                id="empPw" name="empPw" placeholder="Password">
                                         </div>
                                         <input type="submit" class="btn btn-primary btn-user btn-block" value="Login">
                                         <hr>

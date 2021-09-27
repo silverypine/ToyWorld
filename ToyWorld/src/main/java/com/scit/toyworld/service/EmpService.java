@@ -30,15 +30,20 @@ public class EmpService {
 	
 	public String login(EmpVO inputData) {
 		String path = "";
-		EmpVO searchData = dao.login(inputData.getEmpid());
+		EmpVO searchData = dao.login(inputData.getEmpId());
 		if (searchData == null) {
 			path = "redirect:/emp/loginForm";
-		} else if (searchData.getEmppw().equals(inputData.getEmppw())) {
-			ss.setAttribute("loginID", searchData.getEmpid());
+		} else if (searchData.getEmpPw().equals(inputData.getEmpPw())) {
+			ss.setAttribute("loginId", searchData.getEmpId());
 			path = "redirect:/";
 		} else {
 			path = "redirect:/emp/loginForm";
 		}
 		return path;
+	}
+	
+	public String logout() {
+		ss.removeAttribute("loginId");
+		return "redirect:/";
 	}
 }
