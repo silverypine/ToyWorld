@@ -16,4 +16,14 @@ insert into
 	)
 </insert>
 
+<select id="login" parameterType="String" resultType="emp">
+select
+	empid
+	,emppw
+from
+	toy_employee
+where
+	empid = #{empid}
+</select>
+
 </mapper>

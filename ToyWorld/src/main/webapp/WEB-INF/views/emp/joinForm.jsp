@@ -39,7 +39,7 @@
     		let checkPW = $("#checkPW").val();
     		
     		if (id == "") {
-    			alert("Please enter your account.");
+    			alert("Please enter your ID.");
     			return false;
     		} else if (id.trim().length < 3 || id.trim().length > 6) {
     			alert("Please enter your ID in 3-6 letters.");
