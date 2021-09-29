@@ -5,8 +5,10 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.scit.toyworld.vo.EmpVO" alias="emp"/>
+		<typeAlias type="com.scit.toyworld.vo.ProdVO" alias="prod"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mapper/empMapper.xml"/>
+		<mapper resource="mapper/prodMapper.xml"/>
 	</mappers>
 </configuration>

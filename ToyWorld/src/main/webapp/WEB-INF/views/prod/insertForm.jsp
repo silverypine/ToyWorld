@@ -230,7 +230,95 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Map</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Product Registration</h1>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3"></div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                            	<form action="/prod/insert" method="post" onsubmit="return formCheck();">
+	                                <table class="table table-bordered" width="100%" cellspacing="0">
+		                              	<tr>
+		                              		<th>Product Number</th>
+		                              		<td>
+		                              			<div class="form-group">
+                                    				<input type="text" class="form-control form-control-user" id="prodNum"
+                                        				name="prodNum" placeholder="ex) A001">
+                                				</div>
+											</td>
+		                              	</tr>
+		                              	<tr>
+		                              		<th>Product Name</th>
+		                              		<td>
+		                              			<div class="form-group">
+                                    				<input type="text" class="form-control form-control-user" id="prodName"
+                                        				name="prodName">
+                                				</div>
+											</td>
+		                              	</tr>
+		                              	<tr>
+		                              		<th>Product Classification</th>
+		                              		<td>
+		                              			<select name="prodClass">
+		                              				<option value="Boy">Boy</option>
+		                              				<option value="Girl">Girl</option>
+		                              				<option value="RC">RC</option>
+		                              				<option value="Doll">Doll</option>
+		                              				<option value="PM">PM</option>
+		                              				<option value="Lego">Lego</option>
+		                              			</select>
+											</td>
+		                              	</tr>
+		                              	<tr>
+		                              		<th>Product Manufacturer</th>
+		                              		<td>
+		                              			<select name="prodManufacturer">
+		                              				<option value="Mimi">Mimi</option>
+		                              				<option value="Sonogong">Sonogong</option>
+		                              				<option value="Academy">Academy</option>
+		                              				<option value="Young">Young</option>
+		                              				<option value="Lego">Lego</option>
+		                              			</select>
+											</td>
+		                              	</tr>
+		                              	<tr>
+		                              		<th>Product Price</th>
+		                              		<td>
+		                              			<div class="form-group">
+                                    				<input type="number" class="form-control form-control-user" id="prodPrice"
+                                        				name="prodPrice">
+                                				</div>
+											</td>
+		                              	</tr>
+		                              	<tr>
+		                              		<th>Product Stock</th>
+		                              		<td>
+		                              			<div class="form-group">
+                                    				<input type="number" class="form-control form-control-user" id="prodStock"
+                                        				name="prodStock">
+                                				</div>
+											</td>
+		                              	</tr>
+		                              	<tr>
+		                              		<th>Product BoxQuantity</th>
+		                              		<td>
+		                              			<div class="form-group">
+                                    				<input type="number" class="form-control form-control-user" id="prodBoxQuantity"
+                                        				name="prodBoxQuantity">
+                                				</div>
+											</td>
+		                              	</tr>
+		                              	<tr>
+		                              		<td colspan="2">
+		                              			<input type="submit" class="btn btn-primary btn-user btn-block" value="Register Product">
+		                              		</td>
+		                              	</tr>
+	                                </table>
+	                            </form>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <!-- /.container-fluid -->
@@ -280,14 +368,21 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="/resources/vendor/jquery/jquery.js"></script>
-    <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="/resources/vendor/jquery/jquery.min.js"></script>
+    <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="/resources/vendor/jquery-easing/jquery.easing.js"></script>
+    <script src="/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="/resources/js/sb-admin-2.js"></script>
+    <script src="/resources/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="/resources/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/resources/js/demo/datatables-demo.js"></script>
 
 </body>
 
