@@ -258,9 +258,9 @@
 											</td>
 		                              	</tr>
 		                              	<tr>
-		                              		<th>Product Classification</th>
+		                              		<th>Product Category</th>
 		                              		<td>
-		                              			<select name="prodClass">
+		                              			<select name="prodCategory">
 		                              				<option value="Boy">Boy</option>
 		                              				<option value="Girl">Girl</option>
 		                              				<option value="RC">RC</option>
@@ -280,6 +280,15 @@
 		                              				<option value="Young">Young</option>
 		                              				<option value="Lego">Lego</option>
 		                              			</select>
+											</td>
+		                              	</tr>
+		                              	<tr>
+		                              		<th>Product Contents</th>
+		                              		<td>
+		                              			<div class="form-group">
+                                    				<input type="text" class="form-control form-control-user" id="prodContents"
+                                        				name="prodContents">
+                                				</div>
 											</td>
 		                              	</tr>
 		                              	<tr>

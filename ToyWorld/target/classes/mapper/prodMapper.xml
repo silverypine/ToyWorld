@@ -10,8 +10,9 @@ insert into
 	toy_product(
 		prodnum
 		,prodname
-		,prodclass
+		,prodcategory
 		,prodmanufacturer
+		,prodcontents
 		,prodprice
 		,prodstock
 		,prodboxquantity
@@ -19,13 +20,32 @@ insert into
 	)values(
 		#{prodNum}
 		,#{prodName}
-		,#{prodClass}
+		,#{prodCategory}
 		,#{prodManufacturer}
+		,#{prodContents}
 		,#{prodPrice}
 		,#{prodStock}
 		,#{prodBoxQuantity}
 		,#{empId}
 	)
 </insert>
+
+<select id="allList" resultType="prod">
+select
+	prodnum
+	,prodname
+	,prodcategory
+	,prodmanufacturer
+	,prodcontents
+	,prodprice
+	,prodstock
+	,prodboxquantity
+	,prodoriginalfilename
+	,prodsavedfilename
+	,to_char(prodindate, 'YYYY-MM-DD')
+	,empid
+from
+	toy_product	
+</select>
 
 </mapper>
