@@ -1,7 +1,10 @@
 package com.scit.toyworld.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -15,7 +18,9 @@ public class ProdController {
 	private ProdService sv;
 
 	@RequestMapping(value = "/prod/listForm", method = RequestMethod.GET)
-	public String listForm() {
+	public String listForm(Model model) {
+		ArrayList<ProdVO> list = sv.allList();
+		model.addAttribute("list", list);
 		return "prod/listForm";
 	}
 
@@ -28,4 +33,5 @@ public class ProdController {
 	public String insertProd(ProdVO prod) {
 		return sv.insertProd(prod);
 	}
+	
 }

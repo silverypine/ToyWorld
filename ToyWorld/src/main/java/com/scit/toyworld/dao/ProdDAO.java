@@ -1,5 +1,7 @@
 package com.scit.toyworld.dao;
 
+import java.util.ArrayList;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,5 +23,16 @@ public class ProdDAO {
 			e.printStackTrace();
 		}
 		return cnt;
+	}
+	
+	public ArrayList<ProdVO> allList() {
+		ArrayList<ProdVO> list = null;
+		try {
+			ProdMapper mapper = ss.getMapper(ProdMapper.class);
+			list = mapper.allList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 }

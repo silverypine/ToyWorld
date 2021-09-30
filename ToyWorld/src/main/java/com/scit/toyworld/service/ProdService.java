@@ -1,5 +1,7 @@
 package com.scit.toyworld.service;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +30,9 @@ public class ProdService {
 			path = "redirect:/prod/insertForm";
 		}
 		return path;
+	}
+	
+	public ArrayList<ProdVO> allList() {
+		return dao.allList();
 	}
 }
