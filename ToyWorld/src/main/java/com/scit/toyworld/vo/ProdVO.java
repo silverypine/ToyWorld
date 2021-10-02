@@ -13,8 +13,8 @@ public class ProdVO {
 	private int prodPrice;
 	private int prodStock;
 	private int prodBoxQuantity;
-	private String originalFileName;
-	private String savedFileName;
+	private String prodOriginalFileName;
+	private String prodSavedFileName;
 	private String prodIndate;
 	private String empId;
 }
