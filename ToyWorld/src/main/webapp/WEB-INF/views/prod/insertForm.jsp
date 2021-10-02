@@ -23,7 +23,43 @@
 
     <!-- Custom styles for this template-->
     <link href="/resources/css/sb-admin-2.css" rel="stylesheet">
-
+	<script type="text/javascript">
+		function formCheck() {
+			
+			let num = $("#prodNum").val();
+			let name = $("#prodName").val();
+			let price = $("#prodPrice").val();
+			let stock = $("#prodStock").val();
+			let boxQuantity = $("#prodBoxQuantity").val();
+			
+			if (num == "") {
+				alert("Please enter product number");
+				return false;
+			}
+			
+			if (name == "") {
+				alert("Please enter product name");
+				return false;
+			}
+			
+			if (isNaN(price)) {
+				alert("Please enter the product price only in numbers");
+				return false;
+			}
+			
+			if (isNaN(stock)) {
+				alert("Please enter the product stock only in numbers");
+				return false;
+			}
+			
+			if (isNaN(boxQuantity)) {
+				alert("Please enter the product boxQuantity only in numbers");
+				return false;
+			}
+			
+			return true;
+		}
+	</script>
 </head>
 
 <body id="page-top">
@@ -295,7 +331,7 @@
 		                              		<th>Product Price</th>
 		                              		<td>
 		                              			<div class="form-group">
-                                    				<input type="number" class="form-control form-control-user" id="prodPrice"
+                                    				<input type="text" class="form-control form-control-user" id="prodPrice"
                                         				name="prodPrice">
                                 				</div>
 											</td>
@@ -304,7 +340,7 @@
 		                              		<th>Product Stock</th>
 		                              		<td>
 		                              			<div class="form-group">
-                                    				<input type="number" class="form-control form-control-user" id="prodStock"
+                                    				<input type="text" class="form-control form-control-user" id="prodStock"
                                         				name="prodStock">
                                 				</div>
 											</td>
@@ -313,7 +349,7 @@
 		                              		<th>Product BoxQuantity</th>
 		                              		<td>
 		                              			<div class="form-group">
-                                    				<input type="number" class="form-control form-control-user" id="prodBoxQuantity"
+                                    				<input type="text" class="form-control form-control-user" id="prodBoxQuantity"
                                         				name="prodBoxQuantity">
                                 				</div>
 											</td>
