@@ -17,6 +17,10 @@ insert into
 		,prodstock
 		,prodboxquantity
 		,empid
+	<if test="prodOriginalFileName != null">
+		,prodoriginalfilename
+		,prodsavedfilename
+	</if>
 	)values(
 		#{prodNum}
 		,#{prodName}
@@ -27,6 +31,10 @@ insert into
 		,#{prodStock}
 		,#{prodBoxQuantity}
 		,#{empId}
+	<if test="prodOriginalFileName != null">
+		,#{prodOriginalFileName}
+		,#{prodSavedFileName}
+	</if>
 	)
 </insert>
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.scit.toyworld.service.ProdService;
 import com.scit.toyworld.vo.ProdVO;
@@ -30,8 +31,8 @@ public class ProdController {
 	}
 	
 	@RequestMapping(value = "/prod/insert", method = RequestMethod.POST)
-	public String insertProd(ProdVO prod) {
-		return sv.insertProd(prod);
+	public String insertProd(ProdVO prod, MultipartFile upload) {
+		return sv.insertProd(prod, upload);
 	}
 	
 }

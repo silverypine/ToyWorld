@@ -237,7 +237,7 @@
                         <div class="card-header py-3"></div>
                         <div class="card-body">
                             <div class="table-responsive">
-                            	<form action="/prod/insert" method="post" onsubmit="return formCheck();">
+                            	<form action="/prod/insert" method="post" enctype="multipart/form-data" onsubmit="return formCheck();">
 	                                <table class="table table-bordered" width="100%" cellspacing="0">
 		                              	<tr>
 		                              		<th>Product Number</th>
@@ -316,6 +316,12 @@
                                     				<input type="number" class="form-control form-control-user" id="prodBoxQuantity"
                                         				name="prodBoxQuantity">
                                 				</div>
+											</td>
+		                              	</tr>
+		                              	<tr>
+		                              		<th>Product Image</th>
+		                              		<td>
+		                              			<input type="file" name="upload">
 											</td>
 		                              	</tr>
 		                              	<tr>
