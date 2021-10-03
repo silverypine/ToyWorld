@@ -23,95 +23,7 @@
 
     <!-- Custom styles for this template-->
     <link href="/resources/css/sb-admin-2.css" rel="stylesheet">
-    
-        <!-- Bootstrap core JavaScript-->
-    <script src="/resources/vendor/jquery/jquery.js"></script>
-    
-	<script type="text/javascript">
-	let arr = [];
-	
-/* 	$(function () {
-		let prodSelect = $(".prodSelect");
- 		console.log(prodSelect);
-		console.log(prodSelect[0].checked);
-		console.log(prodSelect[0].value);
-		for (i=0; i < prodSelect.length; i++) {
-			if (prodSelect[i].checked == true) {
-				arr.push(prodSelect[i].value);
-			}
-		}
-	}); */
-	$(function () {
-		let prodSelect = $(".prodSelect");
-		$.each($(".prodSelect"), function (i) {
-			
-/* 			$(this).on("click", function () {
-				if ($(this).is(":checked") == true) {
-					arr.push($(this).val());
-					console.log(arr);
-				}
-			});
-			$(this).on("click", function () {
-				console.log($(this).is(":checked"));
-				if ($(this).is(":checked") == false) {
-					arr.pop();
-					console.log(arr);
-				}
-			}); */
-			
-			$(this).on("click", function () {
-				let index = arr.indexOf($(this).val());
-				if (index == -1) {
-					arr.push($(this).val());
-					console.log(arr);
-				} else {
-					arr.splice(index, 1);
-					console.log(arr);
-				}
-			});
-		});
-	});
-	
-	console.log(arr);
-	
-/* 	function sendProdNum() {
-		let prodSelect = $(".prodSelect");
-		for (i=0; i < prodSelect.length; i++) {
-			if (prodSelect[i].checked == true) {
-				arr.push(prodSelect[i].value);
-			}
-		}
-	} */
-	
-	$(function () {
-		$("#SaveProdNum").on("click", function () {
-			$.ajax({
-				url: "/prod/SaveProdNum"
-				,type: "GET"
-				,contentType: "application/json; charset=utf-8"
-				,data: {
-					"prodNumList" : arr
-				}
-				,dataType : "json"
-				,success : function (data) {
-					if (data) {
-						alert("Save Success. Go to location registration page!");
-						window.location.href = "/prod/goToMap";
-					} else {
-						alert("Save Failed!");
-					}
-				}
-				,error : function (e) {
-					console.log(e);
-				}
-			});
-		});
-	});
-	
-	function goToMap() {
-		location.href = "/prod/goToMap";
-	}
-	</script>
+
 </head>
 
 <body id="page-top">
@@ -315,58 +227,43 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid" style="position: relative; width: 1300px; height: 600px;">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Product List</h1>
-					<button id="SaveProdNum" class="btn btn-info">Save Product Number</button>
-					<button class="btn btn-info" onclick="javascript: goToMap()">Go To Map</button>
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3"></div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                        	<th>Select</th>
-                                            <th>Num</th>
-                                            <th>Name</th>
-                                            <th>Category</th>
-                                            <th>Manufacturer</th>
-                                            <th>Price</th>
-                                            <th>Stock</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                        	<th>Select</th>
-                                            <th>Num</th>
-                                            <th>Name</th>
-                                            <th>Category</th>
-                                            <th>Manufacturer</th>
-                                            <th>Price</th>
-                                            <th>Stock</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
- 										<c:forEach var="p" items="${list}">
- 											<tr>
- 												<td><input type="checkbox" value="${p.prodNum }" name="SaveNum" class="prodSelect"></td>
- 												<td>${p.prodNum }</td>
- 												<td><a href="/prod/readForm?prodNum=${p.prodNum }">${p.prodName }</a></td>
- 												<td>${p.prodCategory }</td>
- 												<td>${p.prodManufacturer }</td>
- 												<td>${p.prodPrice }</td>
- 												<td>${p.prodStock }</td>
- 											</tr>
- 										</c:forEach>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
+                    <h1 class="h3 mb-4 text-gray-800">Map</h1>
+<%-- 					<c:forEach var="p" items="${list}">
+						${p}
+					</c:forEach> --%>
+					<div style="position: absolute; width: 150px; height: 300px; left: 50px;">
+						<c:forEach begin="1" end="20" step="1">
+							<input type="button" value="20" class="btn btn-primary" style="margin: 3px; width: 50px; height: 40px;">
+						</c:forEach>
+					</div>
+					<div style="position: absolute; width: 300px; height: 300px; left: 200px;">
+						<img alt="Entrance" src="/resources/img/next1.png" width="100" height="100" style="left: 500px;">
+						<img alt="Exit" src="/resources/img/next2.png" width="100" height="100">
+					</div>
+					<div style="position: absolute; width: 300px; height: 300px; left: 450px;">
+						<c:forEach begin="1" end="20" step="1">
+							<input type="button" value="20" class="btn btn-primary" style="margin: 3px; width: 50px; height: 40px;">
+						</c:forEach>
+					</div>
+					<div style="position: absolute; width: 300px; height: 100px; left: 900px;">
+						<c:forEach begin="1" end="10" step="1">
+							<input type="button" value="20" class="btn btn-primary" style="margin: 3px; width: 50px; height: 40px;">
+						</c:forEach>
+					</div>
+					<div style="position: absolute; width: 600px; height: 100px; left: 300px; top: 350px;">
+						<c:forEach begin="1" end="40" step="1">
+							<input type="button" value="20" class="btn btn-primary" style="margin: 3px; width: 50px; height: 40px;">
+						</c:forEach>
+					</div>
+					
+					<div style="position: absolute; width: 150px; height: 200px; left: 1000px; top: 250px;">
+						<c:forEach begin="1" end="10" step="1">
+							<input type="button" value="20" class="btn btn-primary" style="margin: 3px; width: 50px; height: 40px;">
+						</c:forEach>
+					</div>
                 </div>
                 <!-- /.container-fluid -->
 
@@ -414,14 +311,16 @@
         </div>
     </div>
 
+    <!-- Bootstrap core JavaScript-->
+    <script src="/resources/vendor/jquery/jquery.js"></script>
+    <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 
+    <!-- Core plugin JavaScript-->
+    <script src="/resources/vendor/jquery-easing/jquery.easing.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="/resources/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="/resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="/resources/js/sb-admin-2.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="/resources/js/demo/datatables-demo.js"></script>
 </body>
 
 </html>

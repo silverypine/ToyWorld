@@ -231,7 +231,8 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">Map</h1>
-
+					<input type="button" class="btn btn-secondary" value="123">
+					<button class="btn btn-secondary" >wow</button>
                 </div>
                 <!-- /.container-fluid -->
 
