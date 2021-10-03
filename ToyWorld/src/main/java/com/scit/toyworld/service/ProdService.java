@@ -51,4 +51,8 @@ public class ProdService {
 	public ArrayList<ProdVO> allList() {
 		return dao.allList();
 	}
+	
+	public ProdVO oneProd(String prodNum) {
+		return dao.oneProd(prodNum);
+	}
 }

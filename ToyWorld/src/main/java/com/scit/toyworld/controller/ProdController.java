@@ -1,6 +1,11 @@
 package com.scit.toyworld.controller;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,4 +40,24 @@ public class ProdController {
 		return sv.insertProd(prod, upload);
 	}
 	
+	@RequestMapping(value = "/prod/readForm", method = RequestMethod.GET)
+	public String readForm(Model model, String prodNum) {
+		ProdVO prod = sv.oneProd(prodNum);
+		model.addAttribute("prod", prod);
+		return "prod/readForm";
+	}
+	
+	@RequestMapping(value = "/prod/loadImage", method = RequestMethod.GET)
+	public String loadImage(String fileName, HttpServletResponse response) throws IOException {
+		response.setContentType("image/jpg");
+	    ServletOutputStream bout = response.getOutputStream();
+		String imagePath = "C:/prodUpload/" + fileName;
+		FileInputStream f = new FileInputStream(imagePath);
+		int length;
+		byte[] buffer = new byte[10];
+		while((length=f.read(buffer)) != -1){
+			bout.write(buffer,0,length);
+		}
+		return null;
+	}
 }

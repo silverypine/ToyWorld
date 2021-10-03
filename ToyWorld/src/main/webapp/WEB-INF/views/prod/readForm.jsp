@@ -23,7 +23,7 @@
 
     <!-- Custom styles for this template-->
     <link href="/resources/css/sb-admin-2.css" rel="stylesheet">
-
+	
 </head>
 
 <body id="page-top">
@@ -230,46 +230,54 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Product List</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Product details</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3"></div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Num</th>
-                                            <th>Name</th>
-                                            <th>Category</th>
-                                            <th>Manufacturer</th>
-                                            <th>Price</th>
-                                            <th>Stock</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Num</th>
-                                            <th>Name</th>
-                                            <th>Category</th>
-                                            <th>Manufacturer</th>
-                                            <th>Price</th>
-                                            <th>Stock</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
- 										<c:forEach var="p" items="${list}">
- 											<tr>
- 												<td>${p.prodNum }</td>
- 												<td><a href="/prod/readForm?prodNum=${p.prodNum }">${p.prodName }</a></td>
- 												<td>${p.prodCategory }</td>
- 												<td>${p.prodManufacturer }</td>
- 												<td>${p.prodPrice }</td>
- 												<td>${p.prodStock }</td>
- 											</tr>
- 										</c:forEach>
-                                    </tbody>
+                                <table class="table table-bordered" width="100%" cellspacing="0">
+	                              	<tr>
+	                              		<th>Product Number</th>
+	                              		<td>${prod.prodNum }</td>
+	                              	</tr>
+	                              	<tr>
+	                              		<th>Product Name</th>
+	                              		<td>${prod.prodName }</td>
+	                              	</tr>
+	                              	<tr>
+	                              		<th>Product Category</th>
+	                              		<td>${prod.prodCategory }</td>
+	                              	</tr>
+	                              	<tr>
+	                              		<th>Product Manufacturer</th>
+										<td>${prod.prodManufacturer }</td>
+	                              	</tr>
+	                              	<tr>
+	                              		<th>Product Contents</th>
+	                              		<td>${prod.prodContents }</td>
+	                              	</tr>
+	                              	<tr>
+	                              		<th>Product Price</th>
+	                              		<td>${prod.prodPrice }</td>
+	                              	</tr>
+	                              	<tr>
+	                              		<th>Product Stock</th>
+	                              		<td>${prod.prodStock }</td>
+	                              	</tr>
+	                              	<tr>
+	                              		<th>Product BoxQuantity</th>
+	                              		<td>${prod.prodBoxQuantity }</td>
+	                              	</tr>
+	                              	<tr>
+	                              		<th>Product Indate</th>
+	                              		<td>${prod.prodIndate }</td>
+	                              	</tr>
+	                              	<tr>
+	                              		<th>Product Image</th>
+	                              		<td><img alt="${prod.prodOriginalFileName}" src="/prod/loadImage?fileName=${prod.prodSavedFileName }"></td>
+	                              	</tr>
                                 </table>
                             </div>
                         </div>
