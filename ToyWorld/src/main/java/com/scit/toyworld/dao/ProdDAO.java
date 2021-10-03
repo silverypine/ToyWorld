@@ -35,4 +35,15 @@ public class ProdDAO {
 		}
 		return list;
 	}
+	
+	public ProdVO oneProd(String prodNum) {
+		ProdVO prod = null;
+		try {
+			ProdMapper mapper = ss.getMapper(ProdMapper.class);
+			prod = mapper.oneProd(prodNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return prod;
+	}
 }

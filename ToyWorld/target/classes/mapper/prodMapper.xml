@@ -56,4 +56,24 @@ from
 	toy_product	
 </select>
 
+<select id="oneProd" parameterType="String" resultType="prod">
+select
+	prodnum
+	,prodname
+	,prodcategory
+	,prodmanufacturer
+	,prodcontents
+	,prodprice
+	,prodstock
+	,prodboxquantity
+	,prodoriginalfilename
+	,prodsavedfilename
+	,to_char(prodindate, 'YYYY-MM-DD') as prodindate
+	,empid
+from
+	toy_product
+where
+	prodnum = #{prodNum}
+</select>
+
 </mapper>

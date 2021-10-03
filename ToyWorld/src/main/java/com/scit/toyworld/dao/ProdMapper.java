@@ -8,4 +8,5 @@ public interface ProdMapper {
 	
 	public int insertProd(ProdVO prod);
 	public ArrayList<ProdVO> allList();
+	public ProdVO oneProd(String prodNum);
 }
