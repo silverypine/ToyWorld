@@ -3,6 +3,7 @@ package com.scit.toyworld.controller;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.scit.toyworld.service.ProdService;
@@ -22,6 +25,8 @@ public class ProdController {
 	
 	@Autowired
 	private ProdService sv;
+	
+	private List<String> SaveNumList;
 
 	@RequestMapping(value = "/prod/listForm", method = RequestMethod.GET)
 	public String listForm(Model model) {
@@ -59,5 +64,26 @@ public class ProdController {
 			bout.write(buffer,0,length);
 		}
 		return null;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/prod/SaveProdNum", method = RequestMethod.GET)
+	public boolean SaveProdNum(@RequestParam(value = "prodNumList[]", defaultValue = "") List<String> prodNumList){
+		if (prodNumList.isEmpty()) {
+			return false;
+		} else {
+			SaveNumList = prodNumList;
+			for (String p:prodNumList) {
+				System.out.println(p);
+			}
+			return true;
+		}
+		
+	}
+	
+	@RequestMapping(value = "/prod/goToMap", method = RequestMethod.GET)
+	public String goToMap(Model model) {
+		model.addAttribute("list", SaveNumList);
+		return "prod/insertMap";
 	}
 }
