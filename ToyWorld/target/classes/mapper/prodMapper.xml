@@ -76,4 +76,38 @@ where
 	prodnum = #{prodNum}
 </select>
 
+<select id="allPositionNum" resultType="pos">
+select
+	positionNum
+from
+	toy_position
+</select>
+
+<!-- <insert id="RegInfo" parameterType="java.util.List">
+insert into
+	toy_position_info(
+		infoNum
+		,positionNum
+		,prodNum
+	)values
+	<foreach collection="list" item="item" separator=",">
+		(toy_position_info_seq.nextval, #{item.positionNum}, #{item.prodNum})
+	</foreach>
+</insert> -->
+
+<insert id="RegInfo" parameterType="java.util.List">
+insert into
+	toy_position_info(
+		infoNum
+		,positionNum
+		,prodNum
+	)
+	select toy_position_info_seq.nextval, A.* from(
+		<foreach collection="list" item="item" separator="UNION ALL">
+			select #{item.positionNum} as positionNum
+					,#{item.prodNum} as prodNum
+			from dual
+		</foreach>) A
+</insert>
+
 </mapper>

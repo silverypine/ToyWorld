@@ -6,6 +6,8 @@
 	<typeAliases>
 		<typeAlias type="com.scit.toyworld.vo.EmpVO" alias="emp"/>
 		<typeAlias type="com.scit.toyworld.vo.ProdVO" alias="prod"/>
+		<typeAlias type="com.scit.toyworld.vo.PositionVO" alias="pos"/>
+		<typeAlias type="com.scit.toyworld.vo.InfoVO" alias="info"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mapper/empMapper.xml"/>
