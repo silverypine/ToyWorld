@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.scit.toyworld.service.ProdService;
+import com.scit.toyworld.vo.PositionVO;
 import com.scit.toyworld.vo.ProdVO;
 
 @Controller
@@ -26,7 +27,7 @@ public class ProdController {
 	@Autowired
 	private ProdService sv;
 	
-	private List<String> SaveNumList;
+	private List<String> SaveProdNumList;
 
 	@RequestMapping(value = "/prod/listForm", method = RequestMethod.GET)
 	public String listForm(Model model) {
@@ -72,10 +73,7 @@ public class ProdController {
 		if (prodNumList.isEmpty()) {
 			return false;
 		} else {
-			SaveNumList = prodNumList;
-			for (String p:prodNumList) {
-				System.out.println(p);
-			}
+			SaveProdNumList = prodNumList;
 			return true;
 		}
 		
@@ -83,7 +81,13 @@ public class ProdController {
 	
 	@RequestMapping(value = "/prod/goToMap", method = RequestMethod.GET)
 	public String goToMap(Model model) {
-		model.addAttribute("list", SaveNumList);
+		ArrayList<PositionVO> posNumList = sv.allPositionNum();
+		model.addAttribute("posList", posNumList);
 		return "prod/insertMap";
+	}
+	
+	@RequestMapping(value = "/prod/RegInfo", method = RequestMethod.GET)
+	public String RegInfo(int positionNum) {
+		return sv.RegInfo(positionNum, SaveProdNumList);
 	}
 }

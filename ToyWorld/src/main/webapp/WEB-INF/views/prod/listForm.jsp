@@ -108,9 +108,6 @@
 		});
 	});
 	
-	function goToMap() {
-		location.href = "/prod/goToMap";
-	}
 	</script>
 </head>
 
@@ -320,7 +317,6 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Product List</h1>
 					<button id="SaveProdNum" class="btn btn-info">Save Product Number</button>
-					<button class="btn btn-info" onclick="javascript: goToMap()">Go To Map</button>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3"></div>
@@ -408,7 +404,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="/emp/logout">Logout</a>
+                    <a class="btn btn-success" href="/emp/logout">Logout</a>
                 </div>
             </div>
         </div>

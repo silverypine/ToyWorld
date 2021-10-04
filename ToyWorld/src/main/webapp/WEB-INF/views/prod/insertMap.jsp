@@ -23,7 +23,13 @@
 
     <!-- Custom styles for this template-->
     <link href="/resources/css/sb-admin-2.css" rel="stylesheet">
-
+	<script type="text/javascript">
+	function sendPosNum(posNum) {
+		if (confirm("Would you like to register product information in that location?")) {
+			location.href = "/prod/RegInfo?positionNum=" + posNum;
+		}
+	}
+	</script>
 </head>
 
 <body id="page-top">
@@ -231,12 +237,11 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">Map</h1>
-<%-- 					<c:forEach var="p" items="${list}">
-						${p}
-					</c:forEach> --%>
+
 					<div style="position: absolute; width: 150px; height: 300px; left: 50px;">
-						<c:forEach begin="1" end="20" step="1">
-							<input type="button" value="20" class="btn btn-primary" style="margin: 3px; width: 50px; height: 40px;">
+						<c:forEach var="pos" items="${posList }" begin="0" end="19" step="1">
+							<input type="button" value="${pos.positionNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.positionNum })">
 						</c:forEach>
 					</div>
 					<div style="position: absolute; width: 300px; height: 300px; left: 200px;">
@@ -244,24 +249,27 @@
 						<img alt="Exit" src="/resources/img/next2.png" width="100" height="100">
 					</div>
 					<div style="position: absolute; width: 300px; height: 300px; left: 450px;">
-						<c:forEach begin="1" end="20" step="1">
-							<input type="button" value="20" class="btn btn-primary" style="margin: 3px; width: 50px; height: 40px;">
+						<c:forEach var="pos" items="${posList }" begin="20" end="39" step="1">
+							<input type="button" value="${pos.positionNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.positionNum })">
 						</c:forEach>
 					</div>
 					<div style="position: absolute; width: 300px; height: 100px; left: 900px;">
-						<c:forEach begin="1" end="10" step="1">
-							<input type="button" value="20" class="btn btn-primary" style="margin: 3px; width: 50px; height: 40px;">
+						<c:forEach var="pos" items="${posList }" begin="40" end="49" step="1">
+							<input type="button" value="${pos.positionNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.positionNum })">
 						</c:forEach>
 					</div>
 					<div style="position: absolute; width: 600px; height: 100px; left: 300px; top: 350px;">
-						<c:forEach begin="1" end="40" step="1">
-							<input type="button" value="20" class="btn btn-primary" style="margin: 3px; width: 50px; height: 40px;">
+						<c:forEach var="pos" items="${posList }" begin="50" end="89" step="1">
+							<input type="button" value="${pos.positionNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.positionNum })">
 						</c:forEach>
 					</div>
-					
 					<div style="position: absolute; width: 150px; height: 200px; left: 1000px; top: 250px;">
-						<c:forEach begin="1" end="10" step="1">
-							<input type="button" value="20" class="btn btn-primary" style="margin: 3px; width: 50px; height: 40px;">
+						<c:forEach var="pos" items="${posList }" begin="90" end="99" step="1">
+							<input type="button" value="${pos.positionNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.positionNum })">
 						</c:forEach>
 					</div>
                 </div>
@@ -305,7 +313,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="/emp/logout">Logout</a>
+                    <a class="btn btn-success" href="/emp/logout">Logout</a>
                 </div>
             </div>
         </div>
