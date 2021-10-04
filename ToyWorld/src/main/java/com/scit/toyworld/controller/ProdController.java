@@ -3,6 +3,7 @@ package com.scit.toyworld.controller;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
@@ -30,8 +31,8 @@ public class ProdController {
 	private List<String> SaveProdNumList;
 
 	@RequestMapping(value = "/prod/listForm", method = RequestMethod.GET)
-	public String listForm(Model model) {
-		ArrayList<ProdVO> list = sv.allList();
+	public String listForm(Model model, PositionVO positionNum) {
+		ArrayList<HashMap<String, Object>> list = sv.allList(positionNum);
 		model.addAttribute("list", list);
 		return "prod/listForm";
 	}
@@ -90,4 +91,14 @@ public class ProdController {
 	public String RegInfo(int positionNum) {
 		return sv.RegInfo(positionNum, SaveProdNumList);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/prod/search", method = RequestMethod.GET)
+	public ArrayList<PositionVO> search(
+			@RequestParam(value = "searchText", defaultValue = "") String searchText) {
+		System.out.println(searchText);
+		ArrayList<PositionVO> searchNum = sv.search(searchText);
+		return searchNum;
+	}
+	
 }

@@ -1,9 +1,9 @@
 package com.scit.toyworld.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +24,6 @@ public class ProdService {
 	
 	@Autowired
 	private HttpSession ss;
-	
-	@Autowired
-	private HttpServletResponse response;
 	
 	private static final String uploadPath = "/prodUpload";
 	
@@ -51,8 +48,8 @@ public class ProdService {
 		return path;
 	}
 	
-	public ArrayList<ProdVO> allList() {
-		return dao.allList();
+	public ArrayList<HashMap<String, Object>> allList(PositionVO positionNum) {
+		return dao.allList(positionNum);
 	}
 	
 	public ProdVO oneProd(String prodNum) {
@@ -82,4 +79,9 @@ public class ProdService {
 		}
 		return path;
 	}
+	
+	public ArrayList<PositionVO> search(String searchText) {
+		return dao.search(searchText);
+	}
+	
 }
