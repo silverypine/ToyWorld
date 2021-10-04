@@ -23,7 +23,36 @@
 
     <!-- Custom styles for this template-->
     <link href="/resources/css/sb-admin-2.css" rel="stylesheet">
-
+    <script src="/resources/vendor/jquery/jquery.js"></script>
+    
+	<script type="text/javascript">
+	function sendPosNum(posNum) {
+		location.href = "/prod/listForm?positionNum=" + posNum;
+	}
+	
+	$(function () {
+		$("#searchBtn").on("click", function () {
+			let searchText = $("#searchText").val();
+			$.ajax({
+				url : "/prod/search"
+				,type : "get"
+		        ,data : {
+		        	"searchText" : searchText
+		        }
+		        ,success : function(data){
+		        	console.log(data);
+		        	data.forEach(function (item, index, array) {
+		        	    console.log(item.positionNum, index);
+		        	    $('#'+item.positionNum).removeClass("btn-primary").addClass("btn-danger");
+		        	});
+		        }
+		        ,error : function(e){
+		        	console.log(e);
+		        }
+			});
+		});
+	});
+	</script>
 </head>
 
 <body id="page-top">
@@ -58,63 +87,6 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
-
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -139,15 +111,15 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
+                    
                     <!-- Topbar Search -->
-                    <form
+                    <form name="searchForm"
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
+                                aria-label="Search" aria-describedby="basic-addon2" id="searchText" name="searchText">
                             <div class="input-group-append">
-                                <button class="btn btn-dark" type="button">
+                                <button class="btn btn-primary" type="button" id="searchBtn">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
@@ -227,12 +199,45 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid" style="position: relative; width: 1300px; height: 600px;">
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">Map</h1>
-					<input type="button" class="btn btn-secondary" value="123">
-					<button class="btn btn-secondary" >wow</button>
+
+					<div style="position: absolute; width: 150px; height: 300px; left: 50px;">
+						<c:forEach var="pos" items="${posList }" begin="0" end="19" step="1">
+							<input type="button" id="${pos.positionNum }" value="${pos.positionNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.positionNum })">
+						</c:forEach>
+					</div>
+					<div style="position: absolute; width: 300px; height: 300px; left: 200px;">
+						<img alt="Entrance" src="/resources/img/next1.png" width="100" height="100" style="left: 500px;">
+						<img alt="Exit" src="/resources/img/next2.png" width="100" height="100">
+					</div>
+					<div style="position: absolute; width: 300px; height: 300px; left: 450px;">
+						<c:forEach var="pos" items="${posList }" begin="20" end="39" step="1">
+							<input type="button" id="${pos.positionNum }" value="${pos.positionNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.positionNum })">
+						</c:forEach>
+					</div>
+					<div style="position: absolute; width: 300px; height: 100px; left: 900px;">
+						<c:forEach var="pos" items="${posList }" begin="40" end="49" step="1">
+							<input type="button" id="${pos.positionNum }" value="${pos.positionNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.positionNum })">
+						</c:forEach>
+					</div>
+					<div style="position: absolute; width: 600px; height: 100px; left: 300px; top: 350px;">
+						<c:forEach var="pos" items="${posList }" begin="50" end="89" step="1">
+							<input type="button" id="${pos.positionNum }" value="${pos.positionNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.positionNum })">
+						</c:forEach>
+					</div>
+					<div style="position: absolute; width: 150px; height: 200px; left: 1000px; top: 250px;">
+						<c:forEach var="pos" items="${posList }" begin="90" end="99" step="1">
+							<input type="button" id="${pos.positionNum }" value="${pos.positionNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.positionNum })">
+						</c:forEach>
+					</div>
                 </div>
                 <!-- /.container-fluid -->
 

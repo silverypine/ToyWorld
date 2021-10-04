@@ -1,6 +1,7 @@
 package com.scit.toyworld.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -28,11 +29,11 @@ public class ProdDAO {
 		return cnt;
 	}
 	
-	public ArrayList<ProdVO> allList() {
-		ArrayList<ProdVO> list = null;
+	public ArrayList<HashMap<String, Object>> allList(PositionVO positionNum) {
+		ArrayList<HashMap<String, Object>> list = null;
 		try {
 			ProdMapper mapper = ss.getMapper(ProdMapper.class);
-			list = mapper.allList();
+			list = mapper.allList(positionNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -70,5 +71,16 @@ public class ProdDAO {
 			e.printStackTrace();
 		}
 		return cnt;
+	}
+	
+	public ArrayList<PositionVO> search(String searchText) {
+		ArrayList<PositionVO> searchNum = null;
+		try {
+			ProdMapper mapper = ss.getMapper(ProdMapper.class);
+			searchNum = mapper.search(searchText);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return searchNum;
 	}
 }
