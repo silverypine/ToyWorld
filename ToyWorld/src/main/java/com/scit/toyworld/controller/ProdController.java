@@ -96,7 +96,6 @@ public class ProdController {
 	@RequestMapping(value = "/prod/search", method = RequestMethod.GET)
 	public ArrayList<PositionVO> search(
 			@RequestParam(value = "searchText", defaultValue = "") String searchText) {
-		System.out.println(searchText);
 		ArrayList<PositionVO> searchNum = sv.search(searchText);
 		return searchNum;
 	}
