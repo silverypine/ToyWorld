@@ -8,22 +8,30 @@
 <insert id="join" parameterType="emp">
 insert into
 	toy_employee(
-		empid
-		,emppw
+		emp_id
+		,emp_pw
+		,emp_email
+		,emp_name
 	)values(
 		#{empId}
 		,#{empPw}
+		,#{empEmail}
+		,#{empName}
 	)
 </insert>
 
 <select id="login" parameterType="String" resultType="emp">
 select
-	empid
-	,emppw
+	emp_id as empId
+	,emp_pw as empPw
+	,emp_auth as empAuth
+	,emp_email as empEmail
+	,emp_name as empName
+	,to_char(emp_indate, 'yyyy-MM-dd') as empIndate
 from
 	toy_employee
 where
-	empid = #{empId}
+	emp_id = #{empId}
 </select>
 
 </mapper>
