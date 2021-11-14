@@ -35,6 +35,7 @@ public class EmpService {
 			path = "redirect:/emp/loginForm";
 		} else if (searchData.getEmpPw().equals(inputData.getEmpPw())) {
 			ss.setAttribute("loginId", searchData.getEmpId());
+			ss.setAttribute("empAuth", searchData.getEmpAuth());
 			path = "redirect:/";
 		} else {
 			path = "redirect:/emp/loginForm";
