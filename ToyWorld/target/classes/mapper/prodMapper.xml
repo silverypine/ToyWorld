@@ -8,18 +8,18 @@
 <insert id="insertProd" parameterType="prod">
 insert into 
 	toy_product(
-		prodnum
-		,prodname
-		,prodcategory
-		,prodmanufacturer
-		,prodcontents
-		,prodprice
-		,prodstock
-		,prodboxquantity
-		,empid
+		prod_num
+		,prod_name
+		,prod_category
+		,prod_manufacturer
+		,prod_contents
+		,prod_price
+		,prod_stock
+		,prod_boxea
+		,emp_id
 	<if test="prodOriginalFileName != null">
-		,prodoriginalfilename
-		,prodsavedfilename
+		,prod_originalfilename
+		,prod_savedfilename
 	</if>
 	)values(
 		#{prodNum}
@@ -29,7 +29,7 @@ insert into
 		,#{prodContents}
 		,#{prodPrice}
 		,#{prodStock}
-		,#{prodBoxQuantity}
+		,#{prodBoxea}
 		,#{empId}
 	<if test="prodOriginalFileName != null">
 		,#{prodOriginalFileName}
@@ -40,52 +40,52 @@ insert into
 
 <select id="allList" resultType="hashmap" parameterType="pos">
 select
-	pd.prodnum as prodnum
-	,pd.prodname as prodname
-	,pd.prodcategory as prodcategory
-	,pd.prodmanufacturer as prodmanufacturer
-	,pd.prodcontents as prodcontents
-	,pd.prodprice as prodprice
-	,pd.prodstock as prodstock
-	,pd.prodboxquantity as prodboxquantity
-	,pd.prodoriginalfilename as prodoriginalfilename
-	,pd.prodsavedfilename as prodsavedfilename
-	,to_char(prodindate, 'YYYY-MM-DD') as prodindate
-	,pd.empid
+	pd.prod_num as prodNum
+	,pd.prod_name as prodName
+	,pd.prod_category as prodCategory
+	,pd.prod_manufacturer as prodManufacturer
+	,pd.prod_contents as prodContents
+	,pd.prod_price as prodPrice
+	,pd.prod_stock as prodStock
+	,pd.prod_boxea as prodBoxea
+	,pd.prod_originalfilename as prodOriginalfilename
+	,pd.prod_savedfilename as prodSavedfilename
+	,to_char(prod_indate, 'YYYY-MM-DD') as proDindate
+	,pd.emp_id as empId
 from
 	toy_product	pd
-<if test="positionNum != 0">
+<if test="posNum != 0">
     ,toy_position_info pi
 where
-    pd.prodnum = pi.prodnum
+    pd.prod_num = pi.prod_num
 and
-    pi.positionnum = #{positionNum}
+    pi.pos_num = #{posNum}
 </if>
 </select>
 
 <select id="oneProd" parameterType="String" resultType="prod">
 select
-	prodnum
-	,prodname
-	,prodcategory
-	,prodmanufacturer
-	,prodcontents
-	,prodprice
-	,prodstock
-	,prodboxquantity
-	,prodoriginalfilename
-	,prodsavedfilename
-	,to_char(prodindate, 'YYYY-MM-DD') as prodindate
-	,empid
+	prod_num as prodNum
+	,prod_name as prodName
+	,prod_category as prodCategory
+	,prod_manufacturer as prodManufacturer
+	,prod_contents as prodContents
+	,prod_price as prodPrice
+	,prod_stock as prodStock
+	,prod_boxea as prodBoxea
+	,prod_originalfilename as prodOriginalfilename
+	,prod_savedfilename as prodSavedfilename
+	,to_char(prod_indate, 'YYYY-MM-DD') as prodIndate
+	,emp_id as empId
 from
 	toy_product
 where
-	prodnum = #{prodNum}
+	prod_num = #{prodNum}
 </select>
 
 <select id="allPositionNum" resultType="pos">
 select
-	positionNum
+	pos_num as posNum
 from
 	toy_position
 </select>
@@ -93,13 +93,13 @@ from
 <insert id="RegInfo" parameterType="java.util.List">
 insert into
 	toy_position_info(
-		infoNum
-		,positionNum
-		,prodNum
+		pos_info_num
+		,pos_num
+		,prod_num
 	)
 	select toy_position_info_seq.nextval, A.* from(
 		<foreach collection="list" item="item" separator="UNION ALL">
-			select #{item.positionNum} as positionNum
+			select #{item.posNum} as posNum
 					,#{item.prodNum} as prodNum
 			from dual
 		</foreach>) A
@@ -107,14 +107,14 @@ insert into
 
 <select id="search" resultType="pos" parameterType="string">
 select
-	distinct pi.positionnum as positionnum
+	distinct pi.pos_num as posNum
 from
 	toy_product	pd
     ,toy_position_info pi
 where
-    pd.prodnum = pi.prodnum
+    pd.prod_num = pi.prod_num
 and
-    upper(pd.prodname) like '%' || upper(trim(#{searchText})) || '%'
+    upper(pd.prod_name) like '%' || upper(trim(#{searchText})) || '%'
 </select>
 
 </mapper>

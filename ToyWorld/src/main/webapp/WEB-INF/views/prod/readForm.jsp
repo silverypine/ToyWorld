@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Home</title>
+    <title>ReadForm</title>
 
     <!-- Custom fonts for this template-->
     <link href="/resources/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
@@ -47,13 +47,13 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Product Management</span>
+                    <span>상품 관리</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Menu</h6>
-                        <a class="collapse-item" href="/prod/listForm">Product List</a>
-                        <a class="collapse-item" href="/prod/insertForm">Product Registration</a>
+                        <a class="collapse-item" href="/prod/listForm">상품 리스트</a>
+                        <a class="collapse-item" href="/prod/insertForm">상품 등록</a>
                     </div>
                 </div>
             </li>
@@ -159,7 +159,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Product details</h1>
+                    <h1 class="h3 mb-2 text-gray-800">상품 상세정보</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -168,43 +168,43 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered" width="100%" cellspacing="0">
 	                              	<tr>
-	                              		<th>Product Number</th>
+	                              		<th>상품 번호</th>
 	                              		<td>${prod.prodNum }</td>
 	                              	</tr>
 	                              	<tr>
-	                              		<th>Product Name</th>
+	                              		<th>상품 이름</th>
 	                              		<td>${prod.prodName }</td>
 	                              	</tr>
 	                              	<tr>
-	                              		<th>Product Category</th>
+	                              		<th>상품 분류</th>
 	                              		<td>${prod.prodCategory }</td>
 	                              	</tr>
 	                              	<tr>
-	                              		<th>Product Manufacturer</th>
+	                              		<th>상품 제조사</th>
 										<td>${prod.prodManufacturer }</td>
 	                              	</tr>
 	                              	<tr>
-	                              		<th>Product Contents</th>
+	                              		<th>상품 내용</th>
 	                              		<td>${prod.prodContents }</td>
 	                              	</tr>
 	                              	<tr>
-	                              		<th>Product Price</th>
+	                              		<th>상품 가격</th>
 	                              		<td>${prod.prodPrice }</td>
 	                              	</tr>
 	                              	<tr>
-	                              		<th>Product Stock</th>
+	                              		<th>상품 재고</th>
 	                              		<td>${prod.prodStock }</td>
 	                              	</tr>
 	                              	<tr>
-	                              		<th>Product BoxQuantity</th>
-	                              		<td>${prod.prodBoxQuantity }</td>
+	                              		<th>상품 입수</th>
+	                              		<td>${prod.prodBoxea }</td>
 	                              	</tr>
 	                              	<tr>
-	                              		<th>Product Indate</th>
+	                              		<th>상품 등록일</th>
 	                              		<td>${prod.prodIndate }</td>
 	                              	</tr>
 	                              	<tr>
-	                              		<th>Product Image</th>
+	                              		<th>상품 이미지</th>
 	                              		<td><img alt="${prod.prodOriginalFileName}" src="/prod/loadImage?fileName=${prod.prodSavedFileName }"></td>
 	                              	</tr>
                                 </table>
@@ -245,12 +245,12 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">알림</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">로그아웃 하시겠습니까?</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-success" href="/emp/logout">Logout</a>

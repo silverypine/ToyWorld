@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Home</title>
+    <title>InsertMap</title>
 
     <!-- Custom fonts for this template-->
     <link href="/resources/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
@@ -53,13 +53,13 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Product Management</span>
+                    <span>상품 관리</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Menu</h6>
-                        <a class="collapse-item" href="/prod/listForm">Product List</a>
-                        <a class="collapse-item" href="/prod/insertForm">Product Registration</a>
+                        <a class="collapse-item" href="/prod/listForm">상품 리스트</a>
+                        <a class="collapse-item" href="/prod/insertForm">상품 등록</a>
                     </div>
                 </div>
             </li>
@@ -165,40 +165,36 @@
                 <div class="container-fluid" style="position: relative; width: 1300px; height: 600px;">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Map</h1>
+                    <h1 class="h3 mb-4 text-gray-800">매장 지도</h1>
 
 					<div style="position: absolute; width: 150px; height: 300px; left: 50px;">
 						<c:forEach var="pos" items="${posList }" begin="0" end="19" step="1">
-							<input type="button" value="${pos.positionNum }" class="btn btn-primary" 
-							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.positionNum })">
+							<input type="button" value="${pos.posNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
 						</c:forEach>
-					</div>
-					<div style="position: absolute; width: 300px; height: 300px; left: 200px;">
-						<img alt="Entrance" src="/resources/img/next1.png" width="100" height="100" style="left: 500px;">
-						<img alt="Exit" src="/resources/img/next2.png" width="100" height="100">
 					</div>
 					<div style="position: absolute; width: 300px; height: 300px; left: 450px;">
 						<c:forEach var="pos" items="${posList }" begin="20" end="39" step="1">
-							<input type="button" value="${pos.positionNum }" class="btn btn-primary" 
-							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.positionNum })">
+							<input type="button" value="${pos.posNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
 						</c:forEach>
 					</div>
 					<div style="position: absolute; width: 300px; height: 100px; left: 900px;">
 						<c:forEach var="pos" items="${posList }" begin="40" end="49" step="1">
-							<input type="button" value="${pos.positionNum }" class="btn btn-primary" 
-							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.positionNum })">
+							<input type="button" value="${pos.posNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
 						</c:forEach>
 					</div>
 					<div style="position: absolute; width: 600px; height: 100px; left: 300px; top: 350px;">
 						<c:forEach var="pos" items="${posList }" begin="50" end="89" step="1">
-							<input type="button" value="${pos.positionNum }" class="btn btn-primary" 
-							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.positionNum })">
+							<input type="button" value="${pos.posNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
 						</c:forEach>
 					</div>
 					<div style="position: absolute; width: 150px; height: 200px; left: 1000px; top: 250px;">
 						<c:forEach var="pos" items="${posList }" begin="90" end="99" step="1">
-							<input type="button" value="${pos.positionNum }" class="btn btn-primary" 
-							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.positionNum })">
+							<input type="button" value="${pos.posNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
 						</c:forEach>
 					</div>
                 </div>
@@ -234,12 +230,12 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">알림</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">로그아웃 하시겠습니까?</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-success" href="/emp/logout">Logout</a>

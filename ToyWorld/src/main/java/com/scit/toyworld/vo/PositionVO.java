@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class PositionVO {
 	
-	private int positionNum;
+	private int posNum;
 }
