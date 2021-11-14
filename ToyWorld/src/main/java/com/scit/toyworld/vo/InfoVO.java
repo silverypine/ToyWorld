@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class InfoVO {
 	
-	private int infoNum;
-	private int positionNum;
+	private int posInfoNum;
+	private int posNum;
 	private String prodNum;
 }

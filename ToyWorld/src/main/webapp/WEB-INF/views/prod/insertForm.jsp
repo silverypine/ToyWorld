@@ -3,63 +3,67 @@
     pageEncoding="UTF-8"%>
     
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
 
-    <title>Home</title>
+<title>InsertForm</title>
 
-    <!-- Custom fonts for this template-->
-    <link href="/resources/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+<!-- Custom fonts for this template-->
+<link href="/resources/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
+<link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
 
-    <!-- Custom styles for this template-->
-    <link href="/resources/css/sb-admin-2.css" rel="stylesheet">
-	<script type="text/javascript">
-		function formCheck() {
-			
-			let num = $("#prodNum").val();
-			let name = $("#prodName").val();
-			let price = $("#prodPrice").val();
-			let stock = $("#prodStock").val();
-			let boxQuantity = $("#prodBoxQuantity").val();
-			
-			if (num == "") {
-				alert("Please enter product number");
-				return false;
-			}
-			
-			if (name == "") {
-				alert("Please enter product name");
-				return false;
-			}
-			
-			if (isNaN(price)) {
-				alert("Please enter the product price only in numbers");
-				return false;
-			}
-			
-			if (isNaN(stock)) {
-				alert("Please enter the product stock only in numbers");
-				return false;
-			}
-			
-			if (isNaN(boxQuantity)) {
-				alert("Please enter the product boxQuantity only in numbers");
-				return false;
-			}
-			
-			return true;
-		}
-	</script>
+<!-- Custom styles for this template-->
+<link href="/resources/css/sb-admin-2.css" rel="stylesheet">
+    
+<script type="text/javascript">
+
+function formCheck() {
+	
+	let num = $("#prodNum").val();
+	let name = $("#prodName").val();
+	let price = $("#prodPrice").val();
+	let stock = $("#prodStock").val();
+	let boxea = $("#prodBoxea").val();
+	
+	if (num == "") {
+		alert("Please enter product number");
+		return false;
+	}
+	
+	if (name == "") {
+		alert("Please enter product name");
+		return false;
+	}
+	
+	if (isNaN(price)) {
+		alert("Please enter the product price only in numbers");
+		return false;
+	}
+	
+	if (isNaN(stock)) {
+		alert("Please enter the product stock only in numbers");
+		return false;
+	}
+	
+	if (isNaN(boxea)) {
+		alert("Please enter the product boxQuantity only in numbers");
+		return false;
+	}
+	
+	return true;
+}
+	
+</script>
+	
 </head>
 
 <body id="page-top">
@@ -83,13 +87,13 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Product Management</span>
+                    <span>상품 관리</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Menu</h6>
-                        <a class="collapse-item" href="/prod/listForm">Product List</a>
-                        <a class="collapse-item" href="/prod/insertForm">Product Registration</a>
+                        <a class="collapse-item" href="/prod/listForm">상품 리스트</a>
+                        <a class="collapse-item" href="/prod/insertForm">상품 등록</a>
                     </div>
                 </div>
             </li>
@@ -195,7 +199,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Product Registration</h1>
+                    <h1 class="h3 mb-2 text-gray-800">상품 등록</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -205,7 +209,7 @@
                             	<form action="/prod/insert" method="post" enctype="multipart/form-data" onsubmit="return formCheck();">
 	                                <table class="table table-bordered" width="100%" cellspacing="0">
 		                              	<tr>
-		                              		<th>Product Number</th>
+		                              		<th>상품 번호</th>
 		                              		<td>
 		                              			<div class="form-group">
                                     				<input type="text" class="form-control form-control-user" id="prodNum"
@@ -214,7 +218,7 @@
 											</td>
 		                              	</tr>
 		                              	<tr>
-		                              		<th>Product Name</th>
+		                              		<th>상품 이름</th>
 		                              		<td>
 		                              			<div class="form-group">
                                     				<input type="text" class="form-control form-control-user" id="prodName"
@@ -223,32 +227,31 @@
 											</td>
 		                              	</tr>
 		                              	<tr>
-		                              		<th>Product Category</th>
+		                              		<th>상품 분류</th>
 		                              		<td>
 		                              			<select name="prodCategory">
-		                              				<option value="Boy">Boy</option>
-		                              				<option value="Girl">Girl</option>
-		                              				<option value="RC">RC</option>
-		                              				<option value="Doll">Doll</option>
-		                              				<option value="PM">PM</option>
-		                              				<option value="Lego">Lego</option>
+		                              				<option value="Boy">남아</option>
+		                              				<option value="Girl">여아</option>
+		                              				<option value="RC">RC카</option>
+		                              				<option value="PM">프라모델</option>
+		                              				<option value="Lego">레고</option>
 		                              			</select>
 											</td>
 		                              	</tr>
 		                              	<tr>
-		                              		<th>Product Manufacturer</th>
+		                              		<th>상품 제조사</th>
 		                              		<td>
 		                              			<select name="prodManufacturer">
-		                              				<option value="Mimi">Mimi</option>
-		                              				<option value="Sonogong">Sonogong</option>
-		                              				<option value="Academy">Academy</option>
-		                              				<option value="Young">Young</option>
-		                              				<option value="Lego">Lego</option>
+		                              				<option value="Mimi">미미월드</option>
+		                              				<option value="Sonogong">손오공</option>
+		                              				<option value="Academy">아카데미</option>
+		                              				<option value="Young">영실업</option>
+		                              				<option value="Lego">레고</option>
 		                              			</select>
 											</td>
 		                              	</tr>
 		                              	<tr>
-		                              		<th>Product Contents</th>
+		                              		<th>상품 내용</th>
 		                              		<td>
 		                              			<div class="form-group">
                                     				<input type="text" class="form-control form-control-user" id="prodContents"
@@ -257,7 +260,7 @@
 											</td>
 		                              	</tr>
 		                              	<tr>
-		                              		<th>Product Price</th>
+		                              		<th>상품 가격</th>
 		                              		<td>
 		                              			<div class="form-group">
                                     				<input type="text" class="form-control form-control-user" id="prodPrice"
@@ -266,7 +269,7 @@
 											</td>
 		                              	</tr>
 		                              	<tr>
-		                              		<th>Product Stock</th>
+		                              		<th>상품 재고</th>
 		                              		<td>
 		                              			<div class="form-group">
                                     				<input type="text" class="form-control form-control-user" id="prodStock"
@@ -275,23 +278,23 @@
 											</td>
 		                              	</tr>
 		                              	<tr>
-		                              		<th>Product BoxQuantity</th>
+		                              		<th>상품 입수</th>
 		                              		<td>
 		                              			<div class="form-group">
-                                    				<input type="text" class="form-control form-control-user" id="prodBoxQuantity"
-                                        				name="prodBoxQuantity">
+                                    				<input type="text" class="form-control form-control-user" id="prodBoxea"
+                                        				name="prodBoxea">
                                 				</div>
 											</td>
 		                              	</tr>
 		                              	<tr>
-		                              		<th>Product Image</th>
+		                              		<th>상품 이미지</th>
 		                              		<td>
 		                              			<input type="file" name="upload">
 											</td>
 		                              	</tr>
 		                              	<tr>
 		                              		<td colspan="2">
-		                              			<input type="submit" class="btn btn-primary btn-user btn-block" value="Register Product">
+		                              			<input type="submit" class="btn btn-primary btn-user btn-block" value="상품 등록">
 		                              		</td>
 		                              	</tr>
 	                                </table>
@@ -333,12 +336,12 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">알림</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">로그아웃 하시겠습니까?</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-success" href="/emp/logout">Logout</a>

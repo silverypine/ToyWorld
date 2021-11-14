@@ -66,7 +66,7 @@ public class ProdService {
 		for (int i = 0; i < SaveProdNumList.size(); i++) {
 			InfoVO info = new InfoVO();
 			info.setProdNum(SaveProdNumList.get(i));
-			info.setPositionNum(positionNum);
+			info.setPosNum(positionNum);;
 			RegInfoList.add(info);
 		}
 		
