@@ -30,12 +30,12 @@ function formCheck() {
 	let pw = $("#empPw").val();
 	
 	if (id == "") {
-		alert("Please enter your ID.");
+		alert("아이디를 입력해주세요");
 		return false;
 	}
     
 	if (pw == "") {
-		alert("Please enter your PW.");
+		alert("패스워드를 입력해주세요");
 		return false;
 	}
 	

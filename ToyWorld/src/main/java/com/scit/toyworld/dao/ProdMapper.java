@@ -11,7 +11,8 @@ import com.scit.toyworld.vo.ProdVO;
 public interface ProdMapper {
 	
 	public int insertProd(ProdVO prod);
-	public ArrayList<HashMap<String, Object>> allList(PositionVO positionNum);
+	public ArrayList<HashMap<String, Object>> allPosList(PositionVO positionNum);
+	public ArrayList<ProdVO> allProdList();
 	public ProdVO oneProd(String prodNum);
 	public ArrayList<PositionVO> allPositionNum();
 	public int RegInfo(List<InfoVO> RegInfoList);
