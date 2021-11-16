@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +30,14 @@ public class ProdController {
 	private ProdService sv;
 	
 	private List<String> SaveProdNumList;
+	
+	@RequestMapping(value = "/prod/wareHouse", method = RequestMethod.GET)
+	public String home(Locale locale, Model model) {
+		ArrayList<PositionVO> posNumList = sv.allPositionNum();
+		model.addAttribute("posList", posNumList);
+		
+		return "prod/wareHouse";
+	}
 
 	@RequestMapping(value = "/prod/posListForm", method = RequestMethod.GET)
 	public String listForm(Model model, PositionVO posNum) {
