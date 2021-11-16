@@ -115,7 +115,7 @@
 					<c:when test="${empty sessionScope.loginId }">
 						<li class="nav-item dropdown no-arrow">
                             <a class="nav-link" href="/emp/loginForm">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Login</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">로그인</span>
                             </a>
 						</li>
 						
@@ -123,7 +123,7 @@
 						
 						<li class="nav-item dropdown no-arrow">
                             <a class="nav-link" href="/emp/joinForm">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Join</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">회원가입</span>
                             </a>
 						</li>
 					</c:when>
@@ -142,7 +142,7 @@
                                 <div class="dropdown-item"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    로그아웃
                                 </a>
                             </div>
                         </li>
@@ -252,8 +252,8 @@
                 </div>
                 <div class="modal-body">로그아웃 하시겠습니까?</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-success" href="/emp/logout">Logout</a>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                    <a class="btn btn-success" href="/emp/logout">로그아웃</a>
                 </div>
             </div>
         </div>

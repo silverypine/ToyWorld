@@ -29,11 +29,23 @@ public class ProdDAO {
 		return cnt;
 	}
 	
-	public ArrayList<HashMap<String, Object>> allList(PositionVO positionNum) {
+	public ArrayList<HashMap<String, Object>> allPosList(PositionVO positionNum) {
 		ArrayList<HashMap<String, Object>> list = null;
 		try {
 			ProdMapper mapper = ss.getMapper(ProdMapper.class);
-			list = mapper.allList(positionNum);
+			System.out.println(positionNum);
+			list = mapper.allPosList(positionNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public ArrayList<ProdVO> allProdList() {
+		ArrayList<ProdVO> list = null;
+		try {
+			ProdMapper mapper = ss.getMapper(ProdMapper.class);
+			list = mapper.allProdList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

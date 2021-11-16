@@ -38,7 +38,27 @@ insert into
 	)
 </insert>
 
-<select id="allList" resultType="hashmap" parameterType="pos">
+<select id="allProdList" resultType="prod">
+select
+	prod_num as prodNum
+	,prod_name as prodName
+	,prod_category as prodCategory
+	,prod_manufacturer as prodManufacturer
+	,prod_contents as prodContents
+	,prod_price as prodPrice
+	,prod_stock as prodStock
+	,prod_boxea as prodBoxea
+	,prod_originalfilename as prodOriginalfilename
+	,prod_savedfilename as prodSavedfilename
+	,to_char(prod_indate, 'YYYY-MM-DD') as prodIndate
+	,emp_id as empId
+from
+	toy_product
+order by
+	prod_num
+</select>
+
+<select id="allPosList" resultType="hashmap" parameterType="pos">
 select
 	pd.prod_num as prodNum
 	,pd.prod_name as prodName
@@ -50,17 +70,15 @@ select
 	,pd.prod_boxea as prodBoxea
 	,pd.prod_originalfilename as prodOriginalfilename
 	,pd.prod_savedfilename as prodSavedfilename
-	,to_char(prod_indate, 'YYYY-MM-DD') as proDindate
+	,to_char(prod_indate, 'YYYY-MM-DD') as prodIndate
 	,pd.emp_id as empId
 from
 	toy_product	pd
-<if test="posNum != 0">
     ,toy_position_info pi
 where
     pd.prod_num = pi.prod_num
 and
     pi.pos_num = #{posNum}
-</if>
 </select>
 
 <select id="oneProd" parameterType="String" resultType="prod">

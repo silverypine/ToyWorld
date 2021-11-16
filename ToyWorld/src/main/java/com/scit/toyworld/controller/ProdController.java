@@ -30,9 +30,16 @@ public class ProdController {
 	
 	private List<String> SaveProdNumList;
 
+	@RequestMapping(value = "/prod/posListForm", method = RequestMethod.GET)
+	public String listForm(Model model, PositionVO posNum) {
+		ArrayList<HashMap<String, Object>> posList = sv.allPosList(posNum);
+		model.addAttribute("posList", posList);
+		return "prod/posListForm";
+	}
+	
 	@RequestMapping(value = "/prod/listForm", method = RequestMethod.GET)
-	public String listForm(Model model, PositionVO positionNum) {
-		ArrayList<HashMap<String, Object>> list = sv.allList(positionNum);
+	public String listForm(Model model) {
+		ArrayList<ProdVO> list = sv.allProdList();
 		model.addAttribute("list", list);
 		return "prod/listForm";
 	}

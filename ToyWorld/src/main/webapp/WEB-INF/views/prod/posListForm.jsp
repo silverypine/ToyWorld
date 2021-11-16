@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Home</title>
+    <title>posListForm</title>
 
     <!-- Custom fonts for this template-->
     <link href="/resources/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
@@ -23,35 +23,65 @@
 
     <!-- Custom styles for this template-->
     <link href="/resources/css/sb-admin-2.css" rel="stylesheet">
+    
+        <!-- Bootstrap core JavaScript-->
     <script src="/resources/vendor/jquery/jquery.js"></script>
     
 	<script type="text/javascript">
-	function sendPosNum(posNum) {
-		location.href = "/prod/posListForm?posNum=" + posNum;
-	}
+	let arr = [];
 	
+/* 	$(function () {
+		let prodSelect = $(".prodSelect");
+ 		console.log(prodSelect);
+		console.log(prodSelect[0].checked);
+		console.log(prodSelect[0].value);
+		for (i=0; i < prodSelect.length; i++) {
+			if (prodSelect[i].checked == true) {
+				arr.push(prodSelect[i].value);
+			}
+		}
+	}); */
 	$(function () {
-		$("#searchBtn").on("click", function () {
-			let searchText = $("#searchText").val();
-			$.ajax({
-				url : "/prod/search"
-				,type : "get"
-		        ,data : {
-		        	"searchText" : searchText
-		        }
-		        ,success : function(data){
-		        	console.log(data);
-		        	data.forEach(function (item, index, array) {
-		        	    console.log(item.posNum, index);
-		        	    $('#'+item.posNum).removeClass("btn-primary").addClass("btn-danger");
-		        	});
-		        }
-		        ,error : function(e){
-		        	console.log(e);
-		        }
+		let prodSelect = $(".prodSelect");
+		$.each($(".prodSelect"), function (i) {
+			
+/* 			$(this).on("click", function () {
+				if ($(this).is(":checked") == true) {
+					arr.push($(this).val());
+					console.log(arr);
+				}
+			});
+			$(this).on("click", function () {
+				console.log($(this).is(":checked"));
+				if ($(this).is(":checked") == false) {
+					arr.pop();
+					console.log(arr);
+				}
+			}); */
+			
+			$(this).on("click", function () {
+				let index = arr.indexOf($(this).val());
+				if (index == -1) {
+					arr.push($(this).val());
+					console.log(arr);
+				} else {
+					arr.splice(index, 1);
+					console.log(arr);
+				}
 			});
 		});
 	});
+	
+	console.log(arr);
+	
+/* 	function sendProdNum() {
+		let prodSelect = $(".prodSelect");
+		for (i=0; i < prodSelect.length; i++) {
+			if (prodSelect[i].checked == true) {
+				arr.push(prodSelect[i].value);
+			}
+		}
+	} */
 	</script>
 </head>
 
@@ -111,20 +141,6 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-                    
-                    <!-- Topbar Search -->
-                    <form name="searchForm"
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2" id="searchText" name="searchText">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button" id="searchBtn">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -199,41 +215,56 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid" style="position: relative; width: 1300px; height: 600px;">
+                <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">매장 지도</h1>
+                    <h1 class="h3 mb-2 text-gray-800">상품 목록</h1>
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3"></div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                        	<th>Select</th>
+                                            <th>Num</th>
+                                            <th>Name</th>
+                                            <th>Category</th>
+                                            <th>Manufacturer</th>
+                                            <th>Price</th>
+                                            <th>Stock</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                        	<th>Select</th>
+                                            <th>Num</th>
+                                            <th>Name</th>
+                                            <th>Category</th>
+                                            <th>Manufacturer</th>
+                                            <th>Price</th>
+                                            <th>Stock</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+ 										<c:forEach var="p" items="${posList}">
+ 											<tr>
+ 												<td><input type="checkbox" value="${p.PRODNUM }" name="SaveNum" class="prodSelect"></td>
+ 												<td>${p.PRODNUM }</td>
+ 												<td><a href="/prod/readForm?prodNum=${p.PRODNUM }">${p.PRODNAME }</a></td>
+ 												<td>${p.PRODCATEGORY }</td>
+ 												<td>${p.PRODMANUFACTURER }</td>
+ 												<td>${p.PRODPRICE }</td>
+ 												<td>${p.PRODSTOCK }</td>
+ 											</tr>
+ 										</c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
 
-					<div style="position: absolute; width: 150px; height: 300px; left: 50px;">
-						<c:forEach var="pos" items="${posList }" begin="0" end="19" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
-							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
-						</c:forEach>
-					</div>
-					<div style="position: absolute; width: 300px; height: 300px; left: 450px;">
-						<c:forEach var="pos" items="${posList }" begin="20" end="39" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
-							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
-						</c:forEach>
-					</div>
-					<div style="position: absolute; width: 300px; height: 100px; left: 900px;">
-						<c:forEach var="pos" items="${posList }" begin="40" end="49" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
-							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
-						</c:forEach>
-					</div>
-					<div style="position: absolute; width: 600px; height: 100px; left: 300px; top: 350px;">
-						<c:forEach var="pos" items="${posList }" begin="50" end="89" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
-							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
-						</c:forEach>
-					</div>
-					<div style="position: absolute; width: 150px; height: 200px; left: 1000px; top: 250px;">
-						<c:forEach var="pos" items="${posList }" begin="90" end="99" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
-							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
-						</c:forEach>
-					</div>
                 </div>
                 <!-- /.container-fluid -->
 
@@ -281,16 +312,14 @@
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="/resources/vendor/jquery/jquery.js"></script>
-    <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="/resources/vendor/jquery-easing/jquery.easing.js"></script>
+	<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <!-- Page level plugins -->
+    <script src="/resources/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="/resources/js/sb-admin-2.js"></script>
-
+    <!-- Page level custom scripts -->
+    <script src="/resources/js/demo/datatables-demo.js"></script>
 </body>
 
 </html>

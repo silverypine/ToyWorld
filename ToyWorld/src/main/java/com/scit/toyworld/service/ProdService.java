@@ -48,8 +48,12 @@ public class ProdService {
 		return path;
 	}
 	
-	public ArrayList<HashMap<String, Object>> allList(PositionVO positionNum) {
-		return dao.allList(positionNum);
+	public ArrayList<HashMap<String, Object>> allPosList(PositionVO positionNum) {
+		return dao.allPosList(positionNum);
+	}
+	
+	public ArrayList<ProdVO> allProdList() {
+		return dao.allProdList();
 	}
 	
 	public ProdVO oneProd(String prodNum) {
