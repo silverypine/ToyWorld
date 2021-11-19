@@ -227,24 +227,24 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                        	<th>Select</th>
-                                            <th>Num</th>
-                                            <th>Name</th>
-                                            <th>Category</th>
-                                            <th>Manufacturer</th>
-                                            <th>Price</th>
-                                            <th>Stock</th>
+                                        	<th>선택</th>
+                                            <th>번호</th>
+                                            <th>이름</th>
+                                            <th>분류</th>
+                                            <th>제조사</th>
+                                            <th>가격</th>
+                                            <th>재고</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                        	<th>Select</th>
-                                            <th>Num</th>
-                                            <th>Name</th>
-                                            <th>Category</th>
-                                            <th>Manufacturer</th>
-                                            <th>Price</th>
-                                            <th>Stock</th>
+                                        	<th>선택</th>
+                                            <th>번호</th>
+                                            <th>이름</th>
+                                            <th>분류</th>
+                                            <th>제조사</th>
+                                            <th>가격</th>
+                                            <th>재고</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>

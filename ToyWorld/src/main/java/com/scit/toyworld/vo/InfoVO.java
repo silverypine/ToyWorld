@@ -8,4 +8,5 @@ public class InfoVO {
 	private int posInfoNum;
 	private int posNum;
 	private String prodNum;
+	private int posStock;
 }

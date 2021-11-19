@@ -7,29 +7,29 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
 
-    <title>ListForm</title>
+<title>ListForm</title>
 
-    <!-- Custom fonts for this template-->
-    <link href="/resources/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+<!-- Custom fonts for this template-->
+<link href="/resources/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
+<link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
 
-    <!-- Custom styles for this template-->
-    <link href="/resources/css/sb-admin-2.css" rel="stylesheet">
+<!-- Custom styles for this template-->
+<link href="/resources/css/sb-admin-2.css" rel="stylesheet">
+
+<!-- Bootstrap core JavaScript-->
+<script src="/resources/vendor/jquery/jquery.js"></script>
     
-        <!-- Bootstrap core JavaScript-->
-    <script src="/resources/vendor/jquery/jquery.js"></script>
-    
-	<script type="text/javascript">
-	let arr = [];
-	
+<script type="text/javascript">
+let arr = [];
+
 /* 	$(function () {
 		let prodSelect = $(".prodSelect");
  		console.log(prodSelect);
@@ -41,9 +41,9 @@
 			}
 		}
 	}); */
-	$(function () {
-		let prodSelect = $(".prodSelect");
-		$.each($(".prodSelect"), function (i) {
+$(function () {
+	let prodSelect = $(".prodSelect");
+	$.each($(".prodSelect"), function (i) {
 			
 /* 			$(this).on("click", function () {
 				if ($(this).is(":checked") == true) {
@@ -59,20 +59,20 @@
 				}
 			}); */
 			
-			$(this).on("click", function () {
-				let index = arr.indexOf($(this).val());
-				if (index == -1) {
-					arr.push($(this).val());
-					console.log(arr);
-				} else {
-					arr.splice(index, 1);
-					console.log(arr);
-				}
-			});
+		$(this).on("click", function () {
+			let index = arr.indexOf($(this).val());
+			if (index == -1) {
+				arr.push($(this).val());
+				console.log(arr);
+			} else {
+				arr.splice(index, 1);
+				console.log(arr);
+			}
 		});
 	});
+});
 	
-	console.log(arr);
+console.log(arr);
 	
 /* 	function sendProdNum() {
 		let prodSelect = $(".prodSelect");
@@ -83,32 +83,137 @@
 		}
 	} */
 	
-	$(function () {
-		$("#SaveProdNum").on("click", function () {
-			$.ajax({
-				url: "/prod/SaveProdNum"
-				,type: "GET"
-				,contentType: "application/json; charset=utf-8"
-				,data: {
-					"prodNumList" : arr
-				}
-				,dataType : "json"
-				,success : function (data) {
-					if (data) {
-						alert("Save Success. Go to location registration page!");
-						window.location.href = "/prod/goToMap";
-					} else {
-						alert("Save Failed!");
-					}
-				}
-				,error : function (e) {
-					console.log(e);
-				}
+	
+$(function () {
+	$("#SaveProdNum").on("click", function () {
+		
+		let cnt1 = 0;
+		let prodNumCheckedArr = [];
+		
+		$.each($(".prodSelect"), function (index) {
+			if ($(this).is(":checked") == true) {
+				cnt1 = cnt1 + 1;
+				prodNumCheckedArr.push($(this).val());
+			} else {
+				index + 1;
+			}
+		});
+		
+		if (cnt1 == 0) {
+			alert("진열할 상품을 선택해주세요");
+			return false;
+		}
+		
+		let stockArr = [];
+		let cnt2 = 0;
+		
+		let minusCnt = 0;
+		$.each($(".inputStock"), function (index) {
+			if ($(this).val() > 0) {
+				stockArr.push(parseInt($(this).val()));
+				cnt2 = cnt2 + 1;
+				console.log(stockArr);
+			} else if ($(this).val() < 0) {
+				alert("수량에 음수를 입력할 수 없습니다!");
+				minusCnt++;
+				return false;
+			}
+		});
+		
+		if (minusCnt > 0) {
+			$(".prodSelect").prop("checked", false);
+			$.each($(".inputStock"), function () {
+				$(this).val("0");
 			});
+			arr = [];
+			return false;
+		}
+		
+		if (cnt2 == 0) {
+			alert("재고수량을 입력해주세요!");
+			return false;
+		}
+		
+		if (cnt1 != cnt2) {
+			alert("선택된 상품과 수량이 일치하지 않습니다!");
+			$(".prodSelect").prop("checked", false);
+			$.each($(".inputStock"), function () {
+				$(this).val("0");
+			});
+			arr = [];
+			return false;
+		}
+		
+		let inputStockArr = [];
+		$.each($(".inputStock"), function () {
+			inputStockArr.push(parseInt($(this).val()));
+		});
+		
+		let inputStockIndexArr = [];
+		for (let i = 0; i < inputStockArr.length; i++) {
+			if (inputStockArr.indexOf(stockArr[i]) != -1) {
+				inputStockIndexArr.push(inputStockArr.indexOf(stockArr[i]));
+			}
+		}
+		
+		let prodNumListArr = [];
+		$.each($(".prodSelect"), function () {
+			prodNumListArr.push($(this).val());
+		});
+		
+		let prodNumListIndexArr = [];
+		for (let i = 0; i < prodNumListArr.length; i++) {
+			if (prodNumListArr.indexOf(prodNumCheckedArr[i]) != -1) {
+				prodNumListIndexArr.push(prodNumListArr.indexOf(prodNumCheckedArr[i]));
+			}
+		}
+		
+		for (let i = 0; i < prodNumListIndexArr.length; i++) {
+			if (prodNumListIndexArr[i] != inputStockIndexArr[i]) {
+				alert("선택된 상품과 수량의 위치가 일치하지 않습니다!");
+				$(".prodSelect").prop("checked", false);
+				$.each($(".inputStock"), function () {
+					$(this).val("0");
+				});
+				arr = [];
+				return false;
+			}
+		}
+		
+		console.log(inputStockIndexArr);
+		console.log(prodNumListIndexArr);
+		
+		$.ajax({
+			url: "/prod/SaveProdNum"
+			,type: "GET"
+			,contentType: "application/json; charset=utf-8"
+			,data: {
+				"prodNumList" : arr
+				,"inputStockList" : stockArr
+			}
+			,dataType : "json"
+			,success : function (data) {
+				if (data) {
+					alert("상품 정보가 저장되었습니다. 위치 등록 페이지로 이동합니다!");
+					window.location.href = "/prod/goToMap";
+				} else {
+					alert("재고를 초과해서 입력할 수 없습니다!");
+					$(".prodSelect").prop("checked", false);
+					$.each($(".inputStock"), function () {
+						$(this).val("0");
+					});
+					arr = [];
+				}
+			}
+			,error : function (e) {
+				console.log(e);
+			}
 		});
 	});
+});
 	
-	</script>
+</script>
+
 </head>
 
 <body id="page-top">
@@ -245,7 +350,7 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">상품 목록</h1>
-					<button id="SaveProdNum" class="btn btn-info">상품 진열</button>
+					<button id="SaveProdNum" class="btn btn-info">매장 상품 진열</button>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3"></div>
@@ -254,36 +359,45 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                        	<th>Select</th>
-                                            <th>Num</th>
-                                            <th>Name</th>
-                                            <th>Category</th>
-                                            <th>Manufacturer</th>
-                                            <th>Price</th>
-                                            <th>Stock</th>
+                                        	<th>선택</th>
+                                            <th>번호</th>
+                                            <th>이름</th>
+                                            <th>분류</th>
+                                            <th>제조사</th>
+                                            <th>가격</th>
+                                            <th>재고</th>
+                                            <th>매장 재고</th>
+                                            <th>창고 재고</th>
+                                            <th>진열 수량 입력</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                        	<th>Select</th>
-                                            <th>Num</th>
-                                            <th>Name</th>
-                                            <th>Category</th>
-                                            <th>Manufacturer</th>
-                                            <th>Price</th>
-                                            <th>Stock</th>
+                                        	<th>선택</th>
+                                            <th>번호</th>
+                                            <th>이름</th>
+                                            <th>분류</th>
+                                            <th>제조사</th>
+                                            <th>가격</th>
+                                            <th>재고</th>
+                                            <th>매장 재고</th>
+                                            <th>창고 재고</th>
+                                            <th>진열 수량 입력</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
  										<c:forEach var="p" items="${list}">
  											<tr>
- 												<td><input type="checkbox" value="${p.prodNum }" name="SaveNum" class="prodSelect"></td>
+ 												<td><input type="checkbox" value="${p.prodNum }" class="prodSelect"></td>
  												<td>${p.prodNum }</td>
  												<td><a href="/prod/readForm?prodNum=${p.prodNum }">${p.prodName }</a></td>
  												<td>${p.prodCategory }</td>
  												<td>${p.prodManufacturer }</td>
  												<td>${p.prodPrice }</td>
  												<td>${p.prodStock }</td>
+ 												<td>${p.prodStoreStock }</td>
+ 												<td>${p.prodWarehouseStock }</td>
+ 												<td><input type="text" value="0" class="inputStock" style="width: 50px;"></td>
  											</tr>
  										</c:forEach>
                                     </tbody>

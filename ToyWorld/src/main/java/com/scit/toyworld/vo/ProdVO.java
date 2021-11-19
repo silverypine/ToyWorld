@@ -17,4 +17,6 @@ public class ProdVO {
 	private String prodSavedFileName;
 	private String prodIndate;
 	private String empId;
+	private int prodStoreStock;
+	private int prodWarehouseStock;
 }
