@@ -29,6 +29,7 @@ public class ProdController {
 	private ProdService sv;
 	
 	private List<String> SaveProdNumList;
+	private List<Integer> SaveStockList;
 
 	@RequestMapping(value = "/prod/posListForm", method = RequestMethod.GET)
 	public String listForm(Model model, PositionVO posNum) {
@@ -77,14 +78,21 @@ public class ProdController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/prod/SaveProdNum", method = RequestMethod.GET)
-	public boolean SaveProdNum(@RequestParam(value = "prodNumList[]", defaultValue = "") List<String> prodNumList){
-		if (prodNumList.isEmpty()) {
+	public boolean SaveProdNum(@RequestParam(value = "prodNumList[]", defaultValue = "") List<String> prodNumList
+			,@RequestParam(value = "inputStockList[]", defaultValue = "") List<Integer> inputStockList){
+		boolean check = false;
+		if (prodNumList.isEmpty() || inputStockList.isEmpty()) {
 			return false;
 		} else {
-			SaveProdNumList = prodNumList;
-			return true;
+			check = sv.checkStock(prodNumList, inputStockList);
+			if (check == true) {
+				SaveProdNumList = prodNumList;
+				SaveStockList = inputStockList;
+				return true;
+			} else {
+				return false;
+			}
 		}
-		
 	}
 	
 	@RequestMapping(value = "/prod/goToMap", method = RequestMethod.GET)
@@ -96,7 +104,7 @@ public class ProdController {
 	
 	@RequestMapping(value = "/prod/RegInfo", method = RequestMethod.GET)
 	public String RegInfo(int positionNum) {
-		return sv.RegInfo(positionNum, SaveProdNumList);
+		return sv.RegInfo(positionNum, SaveProdNumList, SaveStockList);
 	}
 	
 	@ResponseBody

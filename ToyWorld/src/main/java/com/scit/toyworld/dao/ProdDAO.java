@@ -85,6 +85,17 @@ public class ProdDAO {
 		return cnt;
 	}
 	
+	public int StoreStockUpdate(List<InfoVO> StoreStockList) {
+		int cnt = 0;
+		try {
+			ProdMapper mapper = ss.getMapper(ProdMapper.class);
+			cnt = mapper.StoreStockUpdate(StoreStockList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	
 	public ArrayList<PositionVO> search(String searchText) {
 		ArrayList<PositionVO> searchNum = null;
 		try {
@@ -94,5 +105,16 @@ public class ProdDAO {
 			e.printStackTrace();
 		}
 		return searchNum;
+	}
+	
+	public ArrayList<ProdVO> checkStock(List<ProdVO> prodNumList) {
+		ArrayList<ProdVO> list = null;
+		try {
+			ProdMapper mapper = ss.getMapper(ProdMapper.class);
+			list = mapper.checkStock(prodNumList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 }

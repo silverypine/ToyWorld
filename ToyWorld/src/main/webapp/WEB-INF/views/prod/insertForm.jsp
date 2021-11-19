@@ -35,27 +35,27 @@ function formCheck() {
 	let boxea = $("#prodBoxea").val();
 	
 	if (num == "") {
-		alert("Please enter product number");
+		alert("상품 번호를 입력하세요");
 		return false;
 	}
 	
 	if (name == "") {
-		alert("Please enter product name");
+		alert("상품 이름을 입력하세요");
 		return false;
 	}
 	
 	if (isNaN(price)) {
-		alert("Please enter the product price only in numbers");
+		alert("상품 가격은 숫자로만 입력하세요");
 		return false;
 	}
 	
 	if (isNaN(stock)) {
-		alert("Please enter the product stock only in numbers");
+		alert("상품 재고는 숫자로만 입력하세요");
 		return false;
 	}
 	
 	if (isNaN(boxea)) {
-		alert("Please enter the product boxQuantity only in numbers");
+		alert("상품 입수는 숫자로만 입력하세요");
 		return false;
 	}
 	

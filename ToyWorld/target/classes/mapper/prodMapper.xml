@@ -52,6 +52,8 @@ select
 	,prod_savedfilename as prodSavedfilename
 	,to_char(prod_indate, 'YYYY-MM-DD') as prodIndate
 	,emp_id as empId
+	,prod_store_stock as prodStoreStock
+	,prod_warehouse_stock as prodWarehouseStock
 from
 	toy_product
 order by
@@ -72,6 +74,8 @@ select
 	,pd.prod_savedfilename as prodSavedfilename
 	,to_char(prod_indate, 'YYYY-MM-DD') as prodIndate
 	,pd.emp_id as empId
+	,pd.prod_store_stock as prodStoreStock
+	,pd.prod_warehouse_stock as prodWarehouseStock
 from
 	toy_product	pd
     ,toy_position_info pi
@@ -114,14 +118,27 @@ insert into
 		pos_info_num
 		,pos_num
 		,prod_num
+		,pos_stock
 	)
 	select toy_position_info_seq.nextval, A.* from(
 		<foreach collection="list" item="item" separator="UNION ALL">
 			select #{item.posNum} as posNum
 					,#{item.prodNum} as prodNum
+					,#{item.posStock} as posStock
 			from dual
 		</foreach>) A
 </insert>
+
+<update id="StoreStockUpdate" parameterType="java.util.List">
+	<foreach collection="list" item="item" index="index" separator=";" open="DECLARE BEGIN" close="; END;">
+		update
+			toy_product
+		set
+			prod_store_stock = prod_store_stock + #{item.posStock}
+		where
+			prod_num = #{item.prodNum}
+	</foreach>
+</update>
 
 <select id="search" resultType="pos" parameterType="string">
 select
@@ -133,6 +150,30 @@ where
     pd.prod_num = pi.prod_num
 and
     upper(pd.prod_name) like '%' || upper(trim(#{searchText})) || '%'
+</select>
+
+<select id="checkStock" resultType="prod" parameterType="java.util.List">
+select
+	prod_num as prodNum
+	,prod_name as prodName
+	,prod_category as prodCategory
+	,prod_manufacturer as prodManufacturer
+	,prod_contents as prodContents
+	,prod_price as prodPrice
+	,prod_stock as prodStock
+	,prod_boxea as prodBoxea
+	,prod_originalfilename as prodOriginalfilename
+	,prod_savedfilename as prodSavedfilename
+	,to_char(prod_indate, 'YYYY-MM-DD') as prodIndate
+	,emp_id as empId
+	,prod_store_stock as prodStoreStock
+	,prod_warehouse_stock as prodWarehouseStock
+from
+	toy_product
+where prod_num in
+<foreach collection="list" item="item" open="(" close=")" separator=",">
+	#{item.prodNum}
+</foreach>
 </select>
 
 </mapper>

@@ -165,7 +165,7 @@
                 <div class="container-fluid" style="position: relative; width: 1300px; height: 600px;">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">매장 지도</h1>
+                    <h1 class="h3 mb-4 text-gray-800">매장 위치 선택</h1>
 
 					<div style="position: absolute; width: 150px; height: 300px; left: 50px;">
 						<c:forEach var="pos" items="${posList }" begin="0" end="19" step="1">
