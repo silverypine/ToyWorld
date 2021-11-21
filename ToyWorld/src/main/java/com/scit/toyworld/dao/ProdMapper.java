@@ -19,4 +19,6 @@ public interface ProdMapper {
 	public ArrayList<PositionVO> search(String searchText);
 	public ArrayList<ProdVO> checkStock(List<ProdVO> prodNumList);
 	public int StoreStockUpdate(List<InfoVO> StoreStockList);
+	public int warehouseStockUpdate(List<InfoVO> warehouseStockList);
+	public ArrayList<InfoVO> checkStoreStock(List<InfoVO> prodNumList);
 }

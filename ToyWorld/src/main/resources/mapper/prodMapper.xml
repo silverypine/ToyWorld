@@ -76,6 +76,8 @@ select
 	,pd.emp_id as empId
 	,pd.prod_store_stock as prodStoreStock
 	,pd.prod_warehouse_stock as prodWarehouseStock
+	,pi.pos_stock as posStock
+	,pi.pos_num as posNum
 from
 	toy_product	pd
     ,toy_position_info pi
@@ -140,6 +142,17 @@ insert into
 	</foreach>
 </update>
 
+<update id="warehouseStockUpdate" parameterType="java.util.List">
+	<foreach collection="list" item="item" index="index" separator=";" open="DECLARE BEGIN" close="; END;">
+		update
+			toy_product
+		set
+			prod_warehouse_stock = prod_warehouse_stock + #{item.posStock}
+		where
+			prod_num = #{item.prodNum}
+	</foreach>
+</update>
+
 <select id="search" resultType="pos" parameterType="string">
 select
 	distinct pi.pos_num as posNum
@@ -170,6 +183,20 @@ select
 	,prod_warehouse_stock as prodWarehouseStock
 from
 	toy_product
+where prod_num in
+<foreach collection="list" item="item" open="(" close=")" separator=",">
+	#{item.prodNum}
+</foreach>
+</select>
+
+<select id="checkStoreStock" resultType="info" parameterType="java.util.List">
+select
+	pos_info_num as posInfoNum
+	,pos_num as posNum
+	,prod_num as prodNum
+	,pos_stock as posStock
+from
+	toy_position_info
 where prod_num in
 <foreach collection="list" item="item" open="(" close=")" separator=",">
 	#{item.prodNum}

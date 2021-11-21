@@ -1,43 +1,69 @@
-drop table toy_employee;
-drop table toy_product;
-drop table toy_position;
+drop sequence toy_order_num_seq;
+drop sequence toy_position_info_seq;
 drop table toy_position_info;
+drop table toy_position;
+drop table toy_product;
+drop table toy_employee;
 
 create table toy_employee(
-    empid      varchar2(30)    primary key
-    ,emppw     varchar2(30)    not null
+    emp_id      varchar2(30)    primary key
+    ,emp_pw     varchar2(30)    not null
+    ,emp_auth   varchar2(30)    default 'employee'
+    ,emp_email  varchar2(100)   not null
+    ,emp_indate date            default sysdate
+    ,emp_name   varchar2(30)    not null
 );
 
 create table toy_product(
-    prodnum                 varchar2(30)    primary key
-    ,prodname               varchar2(100)   not null
-    ,prodcategory           varchar2(30)    not null
-    ,prodmanufacturer       varchar2(30)    not null
-    ,prodcontents           varchar2(1000)  
-    ,prodprice              number          default 0
-    ,prodstock              number          default 0
-    ,prodboxquantity        number          default 0
-    ,prodoriginalfilename   varchar2(200)   
-    ,prodsavedfilename      varchar2(200)
-    ,prodindate             date            default sysdate
-    ,empid                  varchar2(30)    references toy_employee(empid)
+    prod_num                 varchar2(30)    primary key
+    ,prod_name               varchar2(100)   not null
+    ,prod_category           varchar2(30)    not null
+    ,prod_manufacturer       varchar2(30)    not null
+    ,prod_contents           varchar2(1000)  
+    ,prod_price              number          default 0
+    ,prod_stock              number          default 0
+    ,prod_boxea              number          default 0
+    ,prod_originalfilename   varchar2(200)   
+    ,prod_savedfilename      varchar2(200)
+    ,prod_indate             date            default sysdate
+    ,emp_id                  varchar2(30)    references toy_employee(emp_id)
+    ,prod_store_stock        number          default 0
+    ,prod_warehouse_stock    number          default 0
 );
 
 create table toy_position(
-    positionNum         number          primary key
+    pos_num         number          primary key
 );
 
 Begin
-    for i in 1..100
+    for i in 1..200
     loop
-    insert into toy_position (positionNum) values (i);
+    insert into toy_position (pos_num) values (i);
     end loop;
 end;
 
 create table toy_position_info(
-    infoNum         number      primary key
-    ,positionNum    number      references toy_position(positionNum)
-    ,prodNum        varchar(30) references toy_product(prodNum)
+    pos_info_num     number      primary key
+    ,pos_num         number      references toy_position(pos_num)
+    ,prod_num        varchar(30) references toy_product(prod_num)
+    ,pos_stock       number      not null
 );
 
 create sequence toy_position_info_seq;
+
+create table toy_member(
+    mem_id          varchar2(30)    primary key
+    ,mem_pw         varchar2(30)    not null
+    ,mem_email      varchar2(100)   not null
+);
+
+create table toy_order(
+    order_num       number          primary key
+    ,mem_id         varchar2(30)    references toy_member(mem_id)
+    ,prod_num       varchar2(30)    references toy_product(prod_num)
+    ,order_quantity number          not null
+    ,order_indate   date            default sysdate
+);
+
+create sequence toy_order_num_seq;
+

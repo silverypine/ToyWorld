@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>posListForm</title>
+    <title>Warehouse</title>
 
     <!-- Custom fonts for this template-->
     <link href="/resources/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
@@ -23,119 +23,35 @@
 
     <!-- Custom styles for this template-->
     <link href="/resources/css/sb-admin-2.css" rel="stylesheet">
-    
-        <!-- Bootstrap core JavaScript-->
     <script src="/resources/vendor/jquery/jquery.js"></script>
-    
+
 	<script type="text/javascript">
-	let arr = [];
+	function sendPosNum(posNum) {
+		location.href = "/prod/warehouseListForm?posNum=" + posNum;
+	}
 	
-/* 	$(function () {
-		let prodSelect = $(".prodSelect");
- 		console.log(prodSelect);
-		console.log(prodSelect[0].checked);
-		console.log(prodSelect[0].value);
-		for (i=0; i < prodSelect.length; i++) {
-			if (prodSelect[i].checked == true) {
-				arr.push(prodSelect[i].value);
-			}
-		}
-	}); */
 	$(function () {
-		let prodSelect = $(".prodSelect");
-		$.each($(".prodSelect"), function (i) {
-			
-/* 			$(this).on("click", function () {
-				if ($(this).is(":checked") == true) {
-					arr.push($(this).val());
-					console.log(arr);
-				}
-			});
-			$(this).on("click", function () {
-				console.log($(this).is(":checked"));
-				if ($(this).is(":checked") == false) {
-					arr.pop();
-					console.log(arr);
-				}
-			}); */
-			
-			$(this).on("click", function () {
-				let index = arr.indexOf($(this).val());
-				if (index == -1) {
-					arr.push($(this).val());
-					console.log(arr);
-				} else {
-					arr.splice(index, 1);
-					console.log(arr);
-				}
+		$("#searchBtn").on("click", function () {
+			let searchText = $("#searchText").val();
+			$.ajax({
+				url : "/prod/search"
+				,type : "get"
+		        ,data : {
+		        	"searchText" : searchText
+		        }
+		        ,success : function(data){
+		        	console.log(data);
+		        	data.forEach(function (item, index, array) {
+		        	    console.log(item.posNum, index);
+		        	    $('#'+item.posNum).removeClass("btn-primary").addClass("btn-danger");
+		        	});
+		        }
+		        ,error : function(e){
+		        	console.log(e);
+		        }
 			});
 		});
 	});
-	
-	console.log(arr);
-	
-/* 	function sendProdNum() {
-		let prodSelect = $(".prodSelect");
-		for (i=0; i < prodSelect.length; i++) {
-			if (prodSelect[i].checked == true) {
-				arr.push(prodSelect[i].value);
-			}
-		}
-	} */
-	
-$(function () {
-	$("#SaveProdNum").on("click", function () {
-		
-		let cnt1 = 0;
-		
-		$.each($(".prodSelect"), function (index) {
-			if ($(this).is(":checked") == true) {
-				cnt1 = cnt1 + 1;
-			} else {
-				index + 1;
-			}
-		});
-		
-		if (cnt1 == 0) {
-			alert("회수할 상품을 선택해주세요");
-			return false;
-		}
-		
-		let posStockList = [];
-		
-		$.each($(".posStock"), function () {
-			posStockList.push(parseInt($(this).val()));
-		});
-		
-		console.log(posStockList);
-		
-		$.ajax({
-			url: "/prod/checkStoreStock"
-			,type: "GET"
-			,contentType: "application/json; charset=utf-8"
-			,data: {
-				"prodNumList" : arr
-				,"posStockList" : posStockList
-			}
-			,dataType : "json"
-			,success : function (data) {
-				if (data) {
-					alert("상품 정보가 저장되었습니다.");
-				} else {
-					alert("재고를 초과해서 입력할 수 없습니다!");
-					$(".prodSelect").prop("checked", false);
-					$.each($(".inputStock"), function () {
-						$(this).val("0");
-					});
-					arr = [];
-				}
-			}
-			,error : function (e) {
-				console.log(e);
-			}
-		});
-	});
-});
 	</script>
 </head>
 
@@ -196,6 +112,20 @@ $(function () {
                         <i class="fa fa-bars"></i>
                     </button>
 
+                    <!-- Topbar Search -->
+                    <form name="searchForm"
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2" id="searchText" name="searchText">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" id="searchBtn">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
@@ -231,9 +161,9 @@ $(function () {
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">로그인</span>
                             </a>
 						</li>
-						
+
 						<div class="topbar-divider d-none d-sm-block"></div>
-						
+
 						<li class="nav-item dropdown no-arrow">
                             <a class="nav-link" href="/emp/joinForm">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">회원가입</span>
@@ -261,7 +191,7 @@ $(function () {
                         </li>
 					</c:otherwise>
 				</c:choose>
-                        
+
 
                     </ul>
 
@@ -269,68 +199,73 @@ $(function () {
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid" style="position: relative; width: 1300px; height: 600px;">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">매장 상품 목록</h1>
-                    <button id="SaveProdNum" class="btn btn-info">매장 상품 회수</button>
+                    <button id="Home" class= "btn btn-info" onclick="location.href='/' ">매장 지도</button>
+                    <button id="Warehouse" class= "btn btn-info" onclick="location.href='/prod/wareHouse' ">창고 지도</button>
                     <hr>
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3"></div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                        	<th>선택</th>
-                                            <th>번호</th>
-                                            <th>이름</th>
-                                            <th>분류</th>
-                                            <th>제조사</th>
-                                            <th>가격</th>
-                                            <th>재고</th>
-                                            <th>매장 재고</th>
-                                            <th>창고 재고</th>
-                                            <th>현위치 재고</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                        	<th>선택</th>
-                                            <th>번호</th>
-                                            <th>이름</th>
-                                            <th>분류</th>
-                                            <th>제조사</th>
-                                            <th>가격</th>
-                                            <th>재고</th>
-                                            <th>매장 재고</th>
-                                            <th>창고 재고</th>
-                                            <th>현위치 재고</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
- 										<c:forEach var="p" items="${posList}">
- 											<tr>
- 												<td><input type="checkbox" value="${p.PRODNUM }" name="SaveNum" class="prodSelect"></td>
- 												<td>${p.PRODNUM }</td>
- 												<td><a href="/prod/readForm?prodNum=${p.PRODNUM }">${p.PRODNAME }</a></td>
- 												<td>${p.PRODCATEGORY }</td>
- 												<td>${p.PRODMANUFACTURER }</td>
- 												<td>${p.PRODPRICE }</td>
- 												<td>${p.PRODSTOCK }</td>
- 												<td>${p.PRODSTORESTOCK }</td>
- 												<td>${p.PRODWAREHOUSESTOCK }</td>
- 												<td>${p.POSSTOCK }</td>
- 												<input type="hidden" value="${p.POSSTOCK }" class="posStock">
- 											</tr>
- 										</c:forEach>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
 
+					<div style="position: absolute; width: 600px; height: 100px; left: 350px; top: 50px;">
+						<c:forEach var="pos" items="${posList }" begin="100" end="129" step="1">
+							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
+						</c:forEach>
+					</div>
+					<div style="position: absolute; width: 100px; height: 200px; left: 350px; top: 250px;">
+						<c:forEach var="pos" items="${posList }" begin="130" end="134" step="1">
+							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
+						</c:forEach>
+					</div>
+					<div style="position: absolute; width: 100px; height: 200px; left: 425px; top: 250px;">
+						<c:forEach var="pos" items="${posList }" begin="135" end="139" step="1">
+							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
+						</c:forEach>
+					</div>
+					<div style="position: absolute; width: 100px; height: 200px; left: 500px; top: 250px;">
+						<c:forEach var="pos" items="${posList }" begin="140" end="144" step="1">
+							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
+						</c:forEach>
+					</div>
+					<div style="position: absolute; width: 100px; height: 200px; left: 575px; top: 250px;">
+						<c:forEach var="pos" items="${posList }" begin="145" end="149" step="1">
+							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
+						</c:forEach>
+					</div>
+					<div style="position: absolute; width: 100px; height: 200px; left: 650px; top: 250px;">
+						<c:forEach var="pos" items="${posList }" begin="150" end="154" step="1">
+							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
+						</c:forEach>
+					</div>
+					<div style="position: absolute; width: 100px; height: 200px; left: 725px; top: 250px;">
+						<c:forEach var="pos" items="${posList }" begin="155" end="159" step="1">
+							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
+						</c:forEach>
+					</div>
+					<div style="position: absolute; width: 100px; height: 200px; left: 800px; top: 250px;">
+						<c:forEach var="pos" items="${posList }" begin="160" end="164" step="1">
+							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
+						</c:forEach>
+					</div>
+					<div style="position: absolute; width: 100px; height: 200px; left: 875px; top: 250px;">
+						<c:forEach var="pos" items="${posList }" begin="165" end="169" step="1">
+							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
+						</c:forEach>
+					</div>
+					<div style="position: absolute; width: 600px; height: 100px; left: 350px; top: 550px;">
+						<c:forEach var="pos" items="${posList }" begin="170" end="199" step="1">
+							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
+						</c:forEach>
+					</div>
                 </div>
                 <!-- /.container-fluid -->
 
@@ -378,14 +313,16 @@ $(function () {
         </div>
     </div>
 
+    <!-- Bootstrap core JavaScript-->
+    <script src="/resources/vendor/jquery/jquery.js"></script>
+    <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 
-	<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-    <!-- Page level plugins -->
-    <script src="/resources/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="/resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="/resources/vendor/jquery-easing/jquery.easing.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="/resources/js/demo/datatables-demo.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="/resources/js/sb-admin-2.js"></script>
+
 </body>
 
-</html>
+</html> 

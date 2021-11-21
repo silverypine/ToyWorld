@@ -212,6 +212,134 @@ $(function () {
 	});
 });
 	
+$(function () {
+	$("#warehouseStockBtn").on("click", function () {
+		
+		let cnt1 = 0;
+		let prodNumCheckedArr = [];
+		
+		$.each($(".prodSelect"), function (index) {
+			if ($(this).is(":checked") == true) {
+				cnt1 = cnt1 + 1;
+				prodNumCheckedArr.push($(this).val());
+			} else {
+				index + 1;
+			}
+		});
+		
+		if (cnt1 == 0) {
+			alert("진열할 상품을 선택해주세요");
+			return false;
+		}
+		
+		let stockArr = [];
+		let cnt2 = 0;
+		
+		let minusCnt = 0;
+		$.each($(".inputStock"), function (index) {
+			if ($(this).val() > 0) {
+				stockArr.push(parseInt($(this).val()));
+				cnt2 = cnt2 + 1;
+				console.log(stockArr);
+			} else if ($(this).val() < 0) {
+				alert("수량에 음수를 입력할 수 없습니다!");
+				minusCnt++;
+				return false;
+			}
+		});
+		
+		if (minusCnt > 0) {
+			$(".prodSelect").prop("checked", false);
+			$.each($(".inputStock"), function () {
+				$(this).val("0");
+			});
+			arr = [];
+			return false;
+		}
+		
+		if (cnt2 == 0) {
+			alert("재고수량을 입력해주세요!");
+			return false;
+		}
+		
+		if (cnt1 != cnt2) {
+			alert("선택된 상품과 수량이 일치하지 않습니다!");
+			$(".prodSelect").prop("checked", false);
+			$.each($(".inputStock"), function () {
+				$(this).val("0");
+			});
+			arr = [];
+			return false;
+		}
+		
+		let inputStockArr = [];
+		$.each($(".inputStock"), function () {
+			inputStockArr.push(parseInt($(this).val()));
+		});
+		
+		let inputStockIndexArr = [];
+		for (let i = 0; i < inputStockArr.length; i++) {
+			if (inputStockArr.indexOf(stockArr[i]) != -1) {
+				inputStockIndexArr.push(inputStockArr.indexOf(stockArr[i]));
+			}
+		}
+		
+		let prodNumListArr = [];
+		$.each($(".prodSelect"), function () {
+			prodNumListArr.push($(this).val());
+		});
+		
+		let prodNumListIndexArr = [];
+		for (let i = 0; i < prodNumListArr.length; i++) {
+			if (prodNumListArr.indexOf(prodNumCheckedArr[i]) != -1) {
+				prodNumListIndexArr.push(prodNumListArr.indexOf(prodNumCheckedArr[i]));
+			}
+		}
+		
+		for (let i = 0; i < prodNumListIndexArr.length; i++) {
+			if (prodNumListIndexArr[i] != inputStockIndexArr[i]) {
+				alert("선택된 상품과 수량의 위치가 일치하지 않습니다!");
+				$(".prodSelect").prop("checked", false);
+				$.each($(".inputStock"), function () {
+					$(this).val("0");
+				});
+				arr = [];
+				return false;
+			}
+		}
+		
+		console.log(inputStockIndexArr);
+		console.log(prodNumListIndexArr);
+		
+		$.ajax({
+			url: "/prod/SaveProdNum"
+			,type: "GET"
+			,contentType: "application/json; charset=utf-8"
+			,data: {
+				"prodNumList" : arr
+				,"inputStockList" : stockArr
+			}
+			,dataType : "json"
+			,success : function (data) {
+				if (data) {
+					alert("상품 정보가 저장되었습니다. 위치 등록 페이지로 이동합니다!");
+					window.location.href = "/prod/goToWarehouseMap";
+				} else {
+					alert("재고를 초과해서 입력할 수 없습니다!");
+					$(".prodSelect").prop("checked", false);
+					$.each($(".inputStock"), function () {
+						$(this).val("0");
+					});
+					arr = [];
+				}
+			}
+			,error : function (e) {
+				console.log(e);
+			}
+		});
+	});
+});
+	
 </script>
 
 </head>
@@ -351,6 +479,8 @@ $(function () {
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">상품 목록</h1>
 					<button id="SaveProdNum" class="btn btn-info">매장 상품 진열</button>
+					<button id="warehouseStockBtn" class="btn btn-info">창고 상품 진열</button>
+					<hr>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3"></div>

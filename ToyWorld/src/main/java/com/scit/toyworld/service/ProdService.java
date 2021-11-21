@@ -86,6 +86,28 @@ public class ProdService {
 		return path;
 	}
 	
+	public String warehouseReg(int positionNum, List<String> SaveProdNumList, List<Integer> SaveStockList) {
+		List<InfoVO> RegInfoList = new ArrayList<InfoVO>();
+		
+		for (int i = 0; i < SaveProdNumList.size(); i++) {
+			InfoVO info = new InfoVO();
+			info.setProdNum(SaveProdNumList.get(i));
+			info.setPosNum(positionNum);
+			info.setPosStock(SaveStockList.get(i));
+			RegInfoList.add(info);
+		}
+		
+		String path = "";
+		int cnt = dao.RegInfo(RegInfoList);
+		dao.warehouseStockUpdate(RegInfoList);
+		if (cnt > 0) {
+			path = "redirect:/prod/wareHouse";
+		} else {
+			path = "redirect:/prod/goToWarehouseMap";
+		}
+		return path;
+	}
+	
 	public ArrayList<PositionVO> search(String searchText) {
 		return dao.search(searchText);
 	}
@@ -105,6 +127,30 @@ public class ProdService {
 		for (int i = 0; i < checkList.size(); i++) {
 			if (checkList.get(i).getProdWarehouseStock() + checkList.get(i).getProdStoreStock()
 					+ list.get(i).getProdStoreStock() > checkList.get(i).getProdStock()) {
+				check = false;
+				break;
+			} else {
+				check = true;
+			}
+		}
+		return check;
+	}
+	
+	public boolean checkStoreStock(List<String> prodNumList, List<Integer> inputStockList) {
+		
+		List<InfoVO> list = new ArrayList<InfoVO>();
+		for (int i = 0; i < prodNumList.size(); i++) {
+			InfoVO info = new InfoVO();
+			info.setProdNum(prodNumList.get(i));
+			info.setPosStock(inputStockList.get(i));
+			list.add(info);
+		}
+		
+		boolean check = false;
+		ArrayList<InfoVO> checkList = dao.checkStoreStock(list);
+		System.out.println(checkList);
+		for (int i = 0; i < checkList.size(); i++) {
+			if (checkList.get(i).getPosStock() < list.get(i).getPosStock()) {
 				check = false;
 				break;
 			} else {
