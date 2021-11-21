@@ -33,7 +33,6 @@ public class ProdDAO {
 		ArrayList<HashMap<String, Object>> list = null;
 		try {
 			ProdMapper mapper = ss.getMapper(ProdMapper.class);
-			System.out.println(positionNum);
 			list = mapper.allPosList(positionNum);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -96,6 +95,17 @@ public class ProdDAO {
 		return cnt;
 	}
 	
+	public int warehouseStockUpdate(List<InfoVO> warehouseStockList) {
+		int cnt = 0;
+		try {
+			ProdMapper mapper = ss.getMapper(ProdMapper.class);
+			cnt = mapper.warehouseStockUpdate(warehouseStockList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	
 	public ArrayList<PositionVO> search(String searchText) {
 		ArrayList<PositionVO> searchNum = null;
 		try {
@@ -112,6 +122,17 @@ public class ProdDAO {
 		try {
 			ProdMapper mapper = ss.getMapper(ProdMapper.class);
 			list = mapper.checkStock(prodNumList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public ArrayList<InfoVO> checkStoreStock(List<InfoVO> prodNumList) {
+		ArrayList<InfoVO> list = null;
+		try {
+			ProdMapper mapper = ss.getMapper(ProdMapper.class);
+			list = mapper.checkStoreStock(prodNumList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

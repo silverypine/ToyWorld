@@ -38,6 +38,21 @@ public class ProdController {
 		return "prod/posListForm";
 	}
 	
+	@RequestMapping(value = "/prod/wareHouse", method = RequestMethod.GET)
+	public String warehouseForm(Model model) {
+		ArrayList<PositionVO> posNumList = sv.allPositionNum();
+		model.addAttribute("posList", posNumList);
+
+		return "prod/warehouse";
+	}
+	
+	@RequestMapping(value = "/prod/warehouseListForm", method = RequestMethod.GET)
+	public String warehouseListForm(Model model, PositionVO posNum) {
+		ArrayList<HashMap<String, Object>> posList = sv.allPosList(posNum);
+		model.addAttribute("posList", posList);
+		return "prod/warehouseListForm";
+	}
+	
 	@RequestMapping(value = "/prod/listForm", method = RequestMethod.GET)
 	public String listForm(Model model) {
 		ArrayList<ProdVO> list = sv.allProdList();
@@ -79,12 +94,31 @@ public class ProdController {
 	@ResponseBody
 	@RequestMapping(value = "/prod/SaveProdNum", method = RequestMethod.GET)
 	public boolean SaveProdNum(@RequestParam(value = "prodNumList[]", defaultValue = "") List<String> prodNumList
-			,@RequestParam(value = "inputStockList[]", defaultValue = "") List<Integer> inputStockList){
+			,@RequestParam(value = "inputStockList[]", defaultValue = "") List<Integer> inputStockList) {
 		boolean check = false;
 		if (prodNumList.isEmpty() || inputStockList.isEmpty()) {
 			return false;
 		} else {
 			check = sv.checkStock(prodNumList, inputStockList);
+			if (check == true) {
+				SaveProdNumList = prodNumList;
+				SaveStockList = inputStockList;
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/prod/checkStoreStock", method = RequestMethod.GET)
+	public boolean checkStoreStock(@RequestParam(value = "prodNumList[]", defaultValue = "") List<String> prodNumList
+			,@RequestParam(value = "inputStockList[]", defaultValue = "") List<Integer> inputStockList) {
+		boolean check = false;
+		if (prodNumList.isEmpty() || inputStockList.isEmpty()) {
+			return false;
+		} else {
+			check = sv.checkStoreStock(prodNumList, inputStockList);
 			if (check == true) {
 				SaveProdNumList = prodNumList;
 				SaveStockList = inputStockList;
@@ -102,9 +136,21 @@ public class ProdController {
 		return "prod/insertMap";
 	}
 	
+	@RequestMapping(value = "/prod/goToWarehouseMap", method = RequestMethod.GET)
+	public String goToWarehouseMap(Model model) {
+		ArrayList<PositionVO> posNumList = sv.allPositionNum();
+		model.addAttribute("posList", posNumList);
+		return "prod/insertWarehouseMap";
+	}
+	
 	@RequestMapping(value = "/prod/RegInfo", method = RequestMethod.GET)
 	public String RegInfo(int positionNum) {
 		return sv.RegInfo(positionNum, SaveProdNumList, SaveStockList);
+	}
+	
+	@RequestMapping(value = "/prod/warehouseReg", method = RequestMethod.GET)
+	public String warehouseReg(int positionNum) {
+		return sv.warehouseReg(positionNum, SaveProdNumList, SaveStockList);
 	}
 	
 	@ResponseBody

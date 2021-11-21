@@ -25,7 +25,7 @@
     <link href="/resources/css/sb-admin-2.css" rel="stylesheet">
 	<script type="text/javascript">
 	function sendPosNum(posNum) {
-		if (confirm("Would you like to register product information in that location?")) {
+		if (confirm("해당 위치에 상품을 등록하시겠습니까?")) {
 			location.href = "/prod/RegInfo?positionNum=" + posNum;
 		}
 	}

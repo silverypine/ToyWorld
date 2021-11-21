@@ -202,8 +202,9 @@
                 <div class="container-fluid" style="position: relative; width: 1300px; height: 600px;">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">매장 지도</h1>
-
+                    <button id="Home" class= "btn btn-info" onclick="location.href='/' ">매장 지도</button>
+                    <button id="Warehouse" class= "btn btn-info" onclick="location.href='/prod/wareHouse' ">창고 지도</button>
+					<hr>
 					<div style="position: absolute; width: 150px; height: 300px; left: 50px;">
 						<c:forEach var="pos" items="${posList }" begin="0" end="19" step="1">
 							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
