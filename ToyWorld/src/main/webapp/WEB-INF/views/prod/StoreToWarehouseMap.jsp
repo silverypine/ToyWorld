@@ -13,7 +13,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>InsertWarehouseMap</title>
+<title>StoreToWarehouseMap</title>
 
 <!-- Custom fonts for this template-->
 <link href="/resources/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
@@ -27,7 +27,7 @@
 <script type="text/javascript">
 function sendPosNum(posNum) {
 	if (confirm("해당 위치에 상품을 등록하시겠습니까?")) {
-		location.href = "/prod/warehouseReg?positionNum=" + posNum;
+		location.href = "/prod/storeToWarehouseReg?positionNum=" + posNum;
 	}
 }
 </script>

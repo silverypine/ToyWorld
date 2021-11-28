@@ -136,21 +136,19 @@ public class ProdService {
 		return check;
 	}
 	
-	public boolean checkStoreStock(List<String> prodNumList, List<Integer> inputStockList) {
+	public boolean checkPosStock(List<Integer> posInfoNumList, List<Integer> inputStockList) {
 		
 		List<InfoVO> list = new ArrayList<InfoVO>();
-		for (int i = 0; i < prodNumList.size(); i++) {
+		for (int i = 0; i < posInfoNumList.size(); i++) {
 			InfoVO info = new InfoVO();
-			info.setProdNum(prodNumList.get(i));
-			info.setPosStock(inputStockList.get(i));
+			info.setPosInfoNum(posInfoNumList.get(i));
 			list.add(info);
 		}
 		
 		boolean check = false;
-		ArrayList<InfoVO> checkList = dao.checkStoreStock(list);
-		System.out.println(checkList);
+		ArrayList<InfoVO> checkList = dao.checkPosStock(list);
 		for (int i = 0; i < checkList.size(); i++) {
-			if (checkList.get(i).getPosStock() < list.get(i).getPosStock()) {
+			if (checkList.get(i).getPosStock() < inputStockList.get(i)) {
 				check = false;
 				break;
 			} else {
@@ -158,6 +156,104 @@ public class ProdService {
 			}
 		}
 		return check;
+	}
+	
+	@SuppressWarnings("unlikely-arg-type")
+	public String storeToWarehouseReg(int positionNum, List<String> SaveProdNumList, List<Integer> SaveStockList
+			,List<Integer> SavePosInfoNumList) {
+		
+		List<InfoVO> list = new ArrayList<InfoVO>();
+		for (int i = 0; i < SaveProdNumList.size(); i++) {
+			InfoVO info = new InfoVO();
+			info.setProdNum(SaveProdNumList.get(i));
+			info.setPosNum(positionNum);
+			info.setPosStock(SaveStockList.get(i));
+			info.setPosInfoNum(SavePosInfoNumList.get(i));
+			list.add(info);
+		}
+		
+		ArrayList<InfoVO> checkList = dao.checkPosNumAndProdNum(positionNum);
+		ArrayList<Integer> indexList = new ArrayList<Integer>();
+		
+		if (checkList.isEmpty()) {
+			dao.RegInfo(list);
+			dao.posStockUpdate(list);
+			dao.StoreAndWarehouseStockUpdate(list);
+		} else {
+			for (int i = 0; i < checkList.size(); i++) {
+				for (int j = 0; j < SaveProdNumList.size(); j++) {
+					if (checkList.get(i).getProdNum().equals(SaveProdNumList.get(j))) {
+						dao.OnePosStockUpdate(list.get(j));
+						dao.OneStoreAndWarehouseStockUpdate(list.get(j));
+						list.get(j).setPosInfoNum(checkList.get(i).getPosInfoNum());
+						dao.OnePosStockUpdate2(list.get(j));
+						indexList.add(j);
+						break;
+					} else {
+						continue;
+					}
+				}
+			}
+			
+			for (int i = 0; i < indexList.size(); i++) {
+				list.remove(indexList.get(i));
+			}
+			
+			dao.RegInfo(list);
+			dao.posStockUpdate(list);
+			dao.StoreAndWarehouseStockUpdate(list);
+		}
+		
+		return "redirect:/prod/wareHouse";
+	}
+	
+	@SuppressWarnings("unlikely-arg-type")
+	public String warehouseToStoreReg(int positionNum, List<String> SaveProdNumList, List<Integer> SaveStockList
+			,List<Integer> SavePosInfoNumList) {
+		
+		List<InfoVO> list = new ArrayList<InfoVO>();
+		for (int i = 0; i < SaveProdNumList.size(); i++) {
+			InfoVO info = new InfoVO();
+			info.setProdNum(SaveProdNumList.get(i));
+			info.setPosNum(positionNum);
+			info.setPosStock(SaveStockList.get(i));
+			info.setPosInfoNum(SavePosInfoNumList.get(i));
+			list.add(info);
+		}
+		
+		ArrayList<InfoVO> checkList = dao.checkPosNumAndProdNum(positionNum);
+		ArrayList<Integer> indexList = new ArrayList<Integer>();
+		
+		if (checkList.isEmpty()) {
+			dao.RegInfo(list);
+			dao.posStockUpdate(list);
+			dao.WarehouseToStoreStockUpdate(list);
+		} else {
+			for (int i = 0; i < checkList.size(); i++) {
+				for (int j = 0; j < SaveProdNumList.size(); j++) {
+					if (checkList.get(i).getProdNum().equals(SaveProdNumList.get(j))) {
+						dao.OnePosStockUpdate(list.get(j));
+						dao.OneWarehouseToStoreStockUpdate(list.get(j));
+						list.get(j).setPosInfoNum(checkList.get(i).getPosInfoNum());
+						dao.OnePosStockUpdate2(list.get(j));
+						indexList.add(j);
+						break;
+					} else {
+						continue;
+					}
+				}
+			}
+			for (int i = 0; i < indexList.size(); i++) {
+				list.remove(indexList.get(i));
+				dao.RegInfo(list);
+				dao.posStockUpdate(list);
+				dao.WarehouseToStoreStockUpdate(list);
+			}
+			
+		}
+		
+		
+		return "redirect:/";
 	}
 	
 }

@@ -78,6 +78,7 @@ select
 	,pd.prod_warehouse_stock as prodWarehouseStock
 	,pi.pos_stock as posStock
 	,pi.pos_num as posNum
+	,pi.pos_info_num as posInfoNum
 from
 	toy_product	pd
     ,toy_position_info pi
@@ -189,7 +190,7 @@ where prod_num in
 </foreach>
 </select>
 
-<select id="checkStoreStock" resultType="info" parameterType="java.util.List">
+<select id="checkPosStock" resultType="info" parameterType="java.util.List">
 select
 	pos_info_num as posInfoNum
 	,pos_num as posNum
@@ -197,10 +198,95 @@ select
 	,pos_stock as posStock
 from
 	toy_position_info
-where prod_num in
+where pos_info_num in
 <foreach collection="list" item="item" open="(" close=")" separator=",">
-	#{item.prodNum}
+	#{item.posInfoNum}
 </foreach>
 </select>
+
+<select id="checkPosNumAndProdNum" resultType="info" parameterType="int">
+select
+	pos_info_num as posInfoNum
+	,pos_num as posNum
+	,prod_num as prodNum
+	,pos_stock as posStock
+from
+	toy_position_info
+where 
+	pos_num = #{positionNum}
+</select>
+
+<update id="posStockUpdate" parameterType="java.util.List">
+	<foreach collection="list" item="item" index="index" separator=";" open="DECLARE BEGIN" close="; END;">
+		update
+			toy_position_info
+		set
+			pos_stock = pos_stock - #{item.posStock}
+		where
+			pos_info_num = #{item.posInfoNum}
+	</foreach>
+</update>
+
+<update id="StoreAndWarehouseStockUpdate" parameterType="java.util.List">
+	<foreach collection="list" item="item" index="index" separator=";" open="DECLARE BEGIN" close="; END;">
+		update
+			toy_product
+		set
+			prod_warehouse_stock = prod_warehouse_stock + #{item.posStock}
+			,prod_store_stock = prod_store_stock - #{item.posStock}
+		where
+			prod_num = #{item.prodNum}
+	</foreach>
+</update>
+
+<update id="WarehouseToStoreStockUpdate" parameterType="java.util.List">
+	<foreach collection="list" item="item" index="index" separator=";" open="DECLARE BEGIN" close="; END;">
+		update
+			toy_product
+		set
+			prod_warehouse_stock = prod_warehouse_stock - #{item.posStock}
+			,prod_store_stock = prod_store_stock + #{item.posStock}
+		where
+			prod_num = #{item.prodNum}
+	</foreach>
+</update>
+
+<update id="OnePosStockUpdate" parameterType="info">
+		update
+			toy_position_info
+		set
+			pos_stock = pos_stock - #{posStock}
+		where
+			pos_info_num = #{posInfoNum}
+</update>
+
+<update id="OnePosStockUpdate2" parameterType="info">
+		update
+			toy_position_info
+		set
+			pos_stock = pos_stock + #{posStock}
+		where
+			pos_info_num = #{posInfoNum}
+</update>
+
+<update id="OneStoreAndWarehouseStockUpdate" parameterType="info">
+		update
+			toy_product
+		set
+			prod_warehouse_stock = prod_warehouse_stock + #{posStock}
+			,prod_store_stock = prod_store_stock - #{posStock}
+		where
+			prod_num = #{prodNum}
+</update>
+
+<update id="OneWarehouseToStoreStockUpdate" parameterType="info">
+		update
+			toy_product
+		set
+			prod_warehouse_stock = prod_warehouse_stock - #{posStock}
+			,prod_store_stock = prod_store_stock + #{posStock}
+		where
+			prod_num = #{prodNum}
+</update>
 
 </mapper>

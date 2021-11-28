@@ -128,14 +128,103 @@ public class ProdDAO {
 		return list;
 	}
 	
-	public ArrayList<InfoVO> checkStoreStock(List<InfoVO> prodNumList) {
+	public ArrayList<InfoVO> checkPosStock(List<InfoVO> posInfoList) {
 		ArrayList<InfoVO> list = null;
 		try {
 			ProdMapper mapper = ss.getMapper(ProdMapper.class);
-			list = mapper.checkStoreStock(prodNumList);
+			list = mapper.checkPosStock(posInfoList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
 	}
+	
+	public ArrayList<InfoVO> checkPosNumAndProdNum(int positionNum) {
+		ArrayList<InfoVO> list = null;
+		try {
+			ProdMapper mapper = ss.getMapper(ProdMapper.class);
+			list = mapper.checkPosNumAndProdNum(positionNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public int posStockUpdate(List<InfoVO> posInfoList) {
+		int cnt = 0;
+		try {
+			ProdMapper mapper = ss.getMapper(ProdMapper.class);
+			cnt = mapper.posStockUpdate(posInfoList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	
+	public int StoreAndWarehouseStockUpdate(List<InfoVO> posInfoList) {
+		int cnt = 0;
+		try {
+			ProdMapper mapper = ss.getMapper(ProdMapper.class);
+			cnt = mapper.StoreAndWarehouseStockUpdate(posInfoList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	
+	public int WarehouseToStoreStockUpdate(List<InfoVO> posInfoList) {
+		int cnt = 0;
+		try {
+			ProdMapper mapper = ss.getMapper(ProdMapper.class);
+			cnt = mapper.WarehouseToStoreStockUpdate(posInfoList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	
+	public int OnePosStockUpdate(InfoVO info) {
+		int cnt = 0;
+		try {
+			ProdMapper mapper = ss.getMapper(ProdMapper.class);
+			cnt = mapper.OnePosStockUpdate(info);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	
+	public int OneStoreAndWarehouseStockUpdate(InfoVO info) {
+		int cnt = 0;
+		try {
+			ProdMapper mapper = ss.getMapper(ProdMapper.class);
+			cnt = mapper.OneStoreAndWarehouseStockUpdate(info);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	
+	public int OnePosStockUpdate2(InfoVO info) {
+		int cnt = 0;
+		try {
+			ProdMapper mapper = ss.getMapper(ProdMapper.class);
+			cnt = mapper.OnePosStockUpdate2(info);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	
+	public int OneWarehouseToStoreStockUpdate(InfoVO info) {
+		int cnt = 0;
+		try {
+			ProdMapper mapper = ss.getMapper(ProdMapper.class);
+			cnt = mapper.OneStoreAndWarehouseStockUpdate(info);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+
 }
