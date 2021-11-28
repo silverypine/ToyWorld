@@ -179,20 +179,32 @@ $(function () {
 			}
 		}
 		
+		let AllposInfoNumArr = [];
+		$.each($(".posInfoNum"), function () {
+			AllposInfoNumArr.push(parseInt($(this).val()));
+		});
+		
+		let posInfoNumArr = [];
+		for (let i = 0; i < prodNumListIndexArr.length; i++) {
+			posInfoNumArr.push(AllposInfoNumArr[prodNumListIndexArr[i]]);
+		}
+		
 		$.ajax({
-			url: "/prod/checkStoreStock"
+			url: "/prod/SavePosInfo"
 			,type: "GET"
 			,contentType: "application/json; charset=utf-8"
 			,data: {
 				"prodNumList" : arr
 				,"inputStockList" : stockArr
+				,"posInfoNumList" : posInfoNumArr
 			}
 			,dataType : "json"
 			,success : function (data) {
 				if (data) {
-					alert("상품 정보가 저장되었습니다.");
+					alert("상품 정보가 저장되었습니다. 위치 등록 페이지로 이동합니다!");
+					window.location.href = "/prod/WarehouseToStoreMap";
 				} else {
-					alert("재고를 초과해서 입력할 수 없습니다!");
+					alert("현위치 재고를 초과해서 입력할 수 없습니다!");
 					$(".prodSelect").prop("checked", false);
 					$.each($(".inputStock"), function () {
 						$(this).val("0");
@@ -343,7 +355,7 @@ $(function () {
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">창고 상품 목록</h1>
-                    <button id="SaveProdNum" class="btn btn-info">창고 상품 재고 변경</button>
+                    <button id="SaveProdNum" class="btn btn-info">창고 -> 매장 이동</button>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3"></div>
@@ -362,7 +374,7 @@ $(function () {
                                             <th>매장 재고</th>
                                             <th>창고 재고</th>
                                             <th>현위치 재고</th>
-                                            <th>진열 수량 입력</th>
+                                            <th>매장 이동 수량</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -377,7 +389,7 @@ $(function () {
                                             <th>매장 재고</th>
                                             <th>창고 재고</th>
                                             <th>현위치 재고</th>
-                                            <th>진열 수량 입력</th>
+                                            <th>매장 이동 수량</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -394,6 +406,7 @@ $(function () {
  												<td>${p.PRODWAREHOUSESTOCK }</td>
  												<td>${p.POSSTOCK }</td>
  												<td><input type="text" value="0" class="inputStock" style="width: 50px;"></td>
+ 												<input type="hidden" value="${p.POSINFONUM }" class="posInfoNum">
  											</tr>
  										</c:forEach>
                                     </tbody>

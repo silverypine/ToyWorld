@@ -87,42 +87,124 @@ $(function () {
 	$("#SaveProdNum").on("click", function () {
 		
 		let cnt1 = 0;
+		let prodNumCheckedArr = [];
 		
 		$.each($(".prodSelect"), function (index) {
 			if ($(this).is(":checked") == true) {
 				cnt1 = cnt1 + 1;
+				prodNumCheckedArr.push($(this).val());
 			} else {
 				index + 1;
 			}
 		});
 		
 		if (cnt1 == 0) {
-			alert("회수할 상품을 선택해주세요");
+			alert("진열할 상품을 선택해주세요");
 			return false;
 		}
 		
-		let posStockList = [];
+		let stockArr = [];
+		let cnt2 = 0;
 		
-		$.each($(".posStock"), function () {
-			posStockList.push(parseInt($(this).val()));
+		let minusCnt = 0;
+		$.each($(".inputStock"), function (index) {
+			if ($(this).val() > 0) {
+				stockArr.push(parseInt($(this).val()));
+				cnt2 = cnt2 + 1;
+				console.log(stockArr);
+			} else if ($(this).val() < 0) {
+				alert("수량에 음수를 입력할 수 없습니다!");
+				minusCnt++;
+				return false;
+			}
 		});
 		
-		console.log(posStockList);
+		if (minusCnt > 0) {
+			$(".prodSelect").prop("checked", false);
+			$.each($(".inputStock"), function () {
+				$(this).val("0");
+			});
+			arr = [];
+			return false;
+		}
+		
+		if (cnt2 == 0) {
+			alert("재고수량을 입력해주세요!");
+			return false;
+		}
+		
+		if (cnt1 != cnt2) {
+			alert("선택된 상품과 수량이 일치하지 않습니다!");
+			$(".prodSelect").prop("checked", false);
+			$.each($(".inputStock"), function () {
+				$(this).val("0");
+			});
+			arr = [];
+			return false;
+		}
+		
+		let inputStockArr = [];
+		$.each($(".inputStock"), function () {
+			inputStockArr.push(parseInt($(this).val()));
+		});
+		
+		let inputStockIndexArr = [];
+		for (let i = 0; i < inputStockArr.length; i++) {
+			if (inputStockArr.indexOf(stockArr[i]) != -1) {
+				inputStockIndexArr.push(inputStockArr.indexOf(stockArr[i]));
+			}
+		}
+		
+		let prodNumListArr = [];
+		$.each($(".prodSelect"), function () {
+			prodNumListArr.push($(this).val());
+		});
+		
+		let prodNumListIndexArr = [];
+		for (let i = 0; i < prodNumListArr.length; i++) {
+			if (prodNumListArr.indexOf(prodNumCheckedArr[i]) != -1) {
+				prodNumListIndexArr.push(prodNumListArr.indexOf(prodNumCheckedArr[i]));
+			}
+		}
+		
+		for (let i = 0; i < prodNumListIndexArr.length; i++) {
+			if (prodNumListIndexArr[i] != inputStockIndexArr[i]) {
+				alert("선택된 상품과 수량의 위치가 일치하지 않습니다!");
+				$(".prodSelect").prop("checked", false);
+				$.each($(".inputStock"), function () {
+					$(this).val("0");
+				});
+				arr = [];
+				return false;
+			}
+		}
+		
+ 		let AllposInfoNumArr = [];
+		$.each($(".posInfoNum"), function () {
+			AllposInfoNumArr.push(parseInt($(this).val()));
+		});
+		
+		let posInfoNumArr = [];
+		for (let i = 0; i < prodNumListIndexArr.length; i++) {
+			posInfoNumArr.push(AllposInfoNumArr[prodNumListIndexArr[i]]);
+		}
 		
 		$.ajax({
-			url: "/prod/checkStoreStock"
+			url: "/prod/SavePosInfo"
 			,type: "GET"
 			,contentType: "application/json; charset=utf-8"
 			,data: {
 				"prodNumList" : arr
-				,"posStockList" : posStockList
+				,"inputStockList" : stockArr
+				,"posInfoNumList" : posInfoNumArr
 			}
 			,dataType : "json"
 			,success : function (data) {
 				if (data) {
-					alert("상품 정보가 저장되었습니다.");
+					alert("상품 정보가 저장되었습니다. 위치 등록 페이지로 이동합니다!");
+					window.location.href = "/prod/StoreToWarehouseMap";
 				} else {
-					alert("재고를 초과해서 입력할 수 없습니다!");
+					alert("현위치 재고를 초과해서 입력할 수 없습니다!");
 					$(".prodSelect").prop("checked", false);
 					$.each($(".inputStock"), function () {
 						$(this).val("0");
@@ -136,7 +218,8 @@ $(function () {
 		});
 	});
 });
-	</script>
+
+</script>
 </head>
 
 <body id="page-top">
@@ -273,7 +356,7 @@ $(function () {
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">매장 상품 목록</h1>
-                    <button id="SaveProdNum" class="btn btn-info">매장 상품 회수</button>
+                    <button id="SaveProdNum" class="btn btn-info">매장 -> 창고 이동</button>
                     <hr>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -293,6 +376,7 @@ $(function () {
                                             <th>매장 재고</th>
                                             <th>창고 재고</th>
                                             <th>현위치 재고</th>
+                                            <th>창고 이동 수량</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -307,6 +391,7 @@ $(function () {
                                             <th>매장 재고</th>
                                             <th>창고 재고</th>
                                             <th>현위치 재고</th>
+                                            <th>창고 이동 수량</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -322,7 +407,8 @@ $(function () {
  												<td>${p.PRODSTORESTOCK }</td>
  												<td>${p.PRODWAREHOUSESTOCK }</td>
  												<td>${p.POSSTOCK }</td>
- 												<input type="hidden" value="${p.POSSTOCK }" class="posStock">
+ 												<td><input type="text" value="0" class="inputStock" style="width: 50px;"></td>
+ 												<input type="hidden" value="${p.POSINFONUM }" class="posInfoNum">
  											</tr>
  										</c:forEach>
                                     </tbody>

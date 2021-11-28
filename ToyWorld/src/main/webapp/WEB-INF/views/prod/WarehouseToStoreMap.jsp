@@ -7,30 +7,29 @@
 
 <head>
 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<title>InsertWarehouseMap</title>
+    <title>WarehouseToStoreMap</title>
 
-<!-- Custom fonts for this template-->
-<link href="/resources/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
-<link
-    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-    rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="/resources/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
-<!-- Custom styles for this template-->
-<link href="/resources/css/sb-admin-2.css" rel="stylesheet">
-   
-<script type="text/javascript">
-function sendPosNum(posNum) {
-	if (confirm("해당 위치에 상품을 등록하시겠습니까?")) {
-		location.href = "/prod/warehouseReg?positionNum=" + posNum;
+    <!-- Custom styles for this template-->
+    <link href="/resources/css/sb-admin-2.css" rel="stylesheet">
+	<script type="text/javascript">
+	function sendPosNum(posNum) {
+		if (confirm("해당 위치에 상품을 등록하시겠습니까?")) {
+			location.href = "/prod/warehouseToStoreReg?positionNum=" + posNum;
+		}
 	}
-}
-</script>
+	</script>
 </head>
 
 <body id="page-top">
@@ -166,65 +165,35 @@ function sendPosNum(posNum) {
                 <div class="container-fluid" style="position: relative; width: 1300px; height: 600px;">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">창고 위치 선택</h1>
+                    <h1 class="h3 mb-4 text-gray-800">매장 위치 선택</h1>
 
-					<div style="position: absolute; width: 600px; height: 100px; left: 350px; top: 50px;">
-						<c:forEach var="pos" items="${posList }" begin="100" end="129" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+					<div style="position: absolute; width: 150px; height: 300px; left: 50px;">
+						<c:forEach var="pos" items="${posList }" begin="0" end="19" step="1">
+							<input type="button" value="${pos.posNum }" class="btn btn-primary" 
 							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
 						</c:forEach>
 					</div>
-					<div style="position: absolute; width: 100px; height: 200px; left: 350px; top: 250px;">
-						<c:forEach var="pos" items="${posList }" begin="130" end="134" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+					<div style="position: absolute; width: 300px; height: 300px; left: 450px;">
+						<c:forEach var="pos" items="${posList }" begin="20" end="39" step="1">
+							<input type="button" value="${pos.posNum }" class="btn btn-primary" 
 							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
 						</c:forEach>
 					</div>
-					<div style="position: absolute; width: 100px; height: 200px; left: 425px; top: 250px;">
-						<c:forEach var="pos" items="${posList }" begin="135" end="139" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+					<div style="position: absolute; width: 300px; height: 100px; left: 900px;">
+						<c:forEach var="pos" items="${posList }" begin="40" end="49" step="1">
+							<input type="button" value="${pos.posNum }" class="btn btn-primary" 
 							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
 						</c:forEach>
 					</div>
-					<div style="position: absolute; width: 100px; height: 200px; left: 500px; top: 250px;">
-						<c:forEach var="pos" items="${posList }" begin="140" end="144" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+					<div style="position: absolute; width: 600px; height: 100px; left: 300px; top: 350px;">
+						<c:forEach var="pos" items="${posList }" begin="50" end="89" step="1">
+							<input type="button" value="${pos.posNum }" class="btn btn-primary" 
 							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
 						</c:forEach>
 					</div>
-					<div style="position: absolute; width: 100px; height: 200px; left: 575px; top: 250px;">
-						<c:forEach var="pos" items="${posList }" begin="145" end="149" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
-							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
-						</c:forEach>
-					</div>
-					<div style="position: absolute; width: 100px; height: 200px; left: 650px; top: 250px;">
-						<c:forEach var="pos" items="${posList }" begin="150" end="154" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
-							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
-						</c:forEach>
-					</div>
-					<div style="position: absolute; width: 100px; height: 200px; left: 725px; top: 250px;">
-						<c:forEach var="pos" items="${posList }" begin="155" end="159" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
-							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
-						</c:forEach>
-					</div>
-					<div style="position: absolute; width: 100px; height: 200px; left: 800px; top: 250px;">
-						<c:forEach var="pos" items="${posList }" begin="160" end="164" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
-							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
-						</c:forEach>
-					</div>
-					<div style="position: absolute; width: 100px; height: 200px; left: 875px; top: 250px;">
-						<c:forEach var="pos" items="${posList }" begin="165" end="169" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
-							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
-						</c:forEach>
-					</div>
-					<div style="position: absolute; width: 600px; height: 100px; left: 350px; top: 550px;">
-						<c:forEach var="pos" items="${posList }" begin="170" end="199" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+					<div style="position: absolute; width: 150px; height: 200px; left: 1000px; top: 250px;">
+						<c:forEach var="pos" items="${posList }" begin="90" end="99" step="1">
+							<input type="button" value="${pos.posNum }" class="btn btn-primary" 
 							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
 						</c:forEach>
 					</div>

@@ -20,5 +20,14 @@ public interface ProdMapper {
 	public ArrayList<ProdVO> checkStock(List<ProdVO> prodNumList);
 	public int StoreStockUpdate(List<InfoVO> StoreStockList);
 	public int warehouseStockUpdate(List<InfoVO> warehouseStockList);
-	public ArrayList<InfoVO> checkStoreStock(List<InfoVO> prodNumList);
+	public ArrayList<InfoVO> checkPosStock(List<InfoVO> posInfoList);
+	public ArrayList<InfoVO> checkPosNumAndProdNum(int positionNum);
+	public int posStockUpdate(List<InfoVO> posInfoList);
+	public int StoreAndWarehouseStockUpdate(List<InfoVO> posInfoList);
+	public int WarehouseToStoreStockUpdate(List<InfoVO> posInfoList);
+	public int OnePosStockUpdate(InfoVO info);
+	public int OnePosStockUpdate2(InfoVO info);
+	public int OneStoreAndWarehouseStockUpdate(InfoVO info);
+	public int OneWarehouseToStoreStockUpdate(InfoVO info);
+	
 }

@@ -30,6 +30,7 @@ public class ProdController {
 	
 	private List<String> SaveProdNumList;
 	private List<Integer> SaveStockList;
+	private List<Integer> SavePosInfoNumList;
 
 	@RequestMapping(value = "/prod/posListForm", method = RequestMethod.GET)
 	public String listForm(Model model, PositionVO posNum) {
@@ -111,17 +112,19 @@ public class ProdController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/prod/checkStoreStock", method = RequestMethod.GET)
-	public boolean checkStoreStock(@RequestParam(value = "prodNumList[]", defaultValue = "") List<String> prodNumList
-			,@RequestParam(value = "inputStockList[]", defaultValue = "") List<Integer> inputStockList) {
+	@RequestMapping(value = "/prod/SavePosInfo", method = RequestMethod.GET)
+	public boolean SavePosInfo(@RequestParam(value = "prodNumList[]", defaultValue = "") List<String> prodNumList
+			,@RequestParam(value = "inputStockList[]", defaultValue = "") List<Integer> inputStockList
+			,@RequestParam(value = "posInfoNumList[]", defaultValue = "") List<Integer> posInfoNumList) {
 		boolean check = false;
-		if (prodNumList.isEmpty() || inputStockList.isEmpty()) {
+		if (prodNumList.isEmpty() || inputStockList.isEmpty() || posInfoNumList.isEmpty()) {
 			return false;
 		} else {
-			check = sv.checkStoreStock(prodNumList, inputStockList);
+			check = sv.checkPosStock(posInfoNumList, inputStockList);
 			if (check == true) {
 				SaveProdNumList = prodNumList;
 				SaveStockList = inputStockList;
+				SavePosInfoNumList = posInfoNumList;
 				return true;
 			} else {
 				return false;
@@ -143,6 +146,20 @@ public class ProdController {
 		return "prod/insertWarehouseMap";
 	}
 	
+	@RequestMapping(value = "/prod/StoreToWarehouseMap", method = RequestMethod.GET)
+	public String StoretoWarehouseMap(Model model) {
+		ArrayList<PositionVO> posNumList = sv.allPositionNum();
+		model.addAttribute("posList", posNumList);
+		return "prod/StoreToWarehouseMap";
+	}
+	
+	@RequestMapping(value = "/prod/WarehouseToStoreMap", method = RequestMethod.GET)
+	public String WarehouseToStoreMap(Model model) {
+		ArrayList<PositionVO> posNumList = sv.allPositionNum();
+		model.addAttribute("posList", posNumList);
+		return "prod/WarehouseToStoreMap";
+	}
+	
 	@RequestMapping(value = "/prod/RegInfo", method = RequestMethod.GET)
 	public String RegInfo(int positionNum) {
 		return sv.RegInfo(positionNum, SaveProdNumList, SaveStockList);
@@ -151,6 +168,16 @@ public class ProdController {
 	@RequestMapping(value = "/prod/warehouseReg", method = RequestMethod.GET)
 	public String warehouseReg(int positionNum) {
 		return sv.warehouseReg(positionNum, SaveProdNumList, SaveStockList);
+	}
+	
+	@RequestMapping(value = "/prod/storeToWarehouseReg", method = RequestMethod.GET)
+	public String storeToWarehouseReg(int positionNum) {
+		return sv.storeToWarehouseReg(positionNum, SaveProdNumList, SaveStockList, SavePosInfoNumList);
+	}
+	
+	@RequestMapping(value = "/prod/warehouseToStoreReg", method = RequestMethod.GET)
+	public String warehouseToStoreReg(int positionNum) {
+		return sv.warehouseToStoreReg(positionNum, SaveProdNumList, SaveStockList, SavePosInfoNumList);
 	}
 	
 	@ResponseBody
