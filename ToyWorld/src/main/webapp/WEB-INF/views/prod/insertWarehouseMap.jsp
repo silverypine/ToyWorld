@@ -170,61 +170,61 @@ function sendPosNum(posNum) {
 
 					<div style="position: absolute; width: 600px; height: 100px; left: 350px; top: 50px;">
 						<c:forEach var="pos" items="${posList }" begin="100" end="129" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-success" 
 							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
 						</c:forEach>
 					</div>
 					<div style="position: absolute; width: 100px; height: 200px; left: 350px; top: 250px;">
 						<c:forEach var="pos" items="${posList }" begin="130" end="134" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-success" 
 							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
 						</c:forEach>
 					</div>
 					<div style="position: absolute; width: 100px; height: 200px; left: 425px; top: 250px;">
 						<c:forEach var="pos" items="${posList }" begin="135" end="139" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-success" 
 							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
 						</c:forEach>
 					</div>
 					<div style="position: absolute; width: 100px; height: 200px; left: 500px; top: 250px;">
 						<c:forEach var="pos" items="${posList }" begin="140" end="144" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-success" 
 							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
 						</c:forEach>
 					</div>
 					<div style="position: absolute; width: 100px; height: 200px; left: 575px; top: 250px;">
 						<c:forEach var="pos" items="${posList }" begin="145" end="149" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-success" 
 							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
 						</c:forEach>
 					</div>
 					<div style="position: absolute; width: 100px; height: 200px; left: 650px; top: 250px;">
 						<c:forEach var="pos" items="${posList }" begin="150" end="154" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-success" 
 							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
 						</c:forEach>
 					</div>
 					<div style="position: absolute; width: 100px; height: 200px; left: 725px; top: 250px;">
 						<c:forEach var="pos" items="${posList }" begin="155" end="159" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-success" 
 							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
 						</c:forEach>
 					</div>
 					<div style="position: absolute; width: 100px; height: 200px; left: 800px; top: 250px;">
 						<c:forEach var="pos" items="${posList }" begin="160" end="164" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-success" 
 							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
 						</c:forEach>
 					</div>
 					<div style="position: absolute; width: 100px; height: 200px; left: 875px; top: 250px;">
 						<c:forEach var="pos" items="${posList }" begin="165" end="169" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-success" 
 							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
 						</c:forEach>
 					</div>
 					<div style="position: absolute; width: 600px; height: 100px; left: 350px; top: 550px;">
 						<c:forEach var="pos" items="${posList }" begin="170" end="199" step="1">
-							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-primary" 
+							<input type="button" id="${pos.posNum }" value="${pos.posNum }" class="btn btn-success" 
 							style="margin: 3px; width: 50px; height: 40px;" onclick="javascript:sendPosNum(${pos.posNum })">
 						</c:forEach>
 					</div>

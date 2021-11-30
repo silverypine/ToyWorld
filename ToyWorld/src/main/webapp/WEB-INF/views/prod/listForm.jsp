@@ -156,6 +156,8 @@ $(function () {
 			}
 		}
 		
+		console.log(inputStockIndexArr);
+		
 		let prodNumListArr = [];
 		$.each($(".prodSelect"), function () {
 			prodNumListArr.push($(this).val());
@@ -524,9 +526,9 @@ $(function () {
  												<td>${p.prodCategory }</td>
  												<td>${p.prodManufacturer }</td>
  												<td>${p.prodPrice }</td>
- 												<td>${p.prodStock }</td>
- 												<td>${p.prodStoreStock }</td>
- 												<td>${p.prodWarehouseStock }</td>
+ 												<td><b>${p.prodStock }</b></td>
+ 												<td><span style="color: #4e73df;"><b>${p.prodStoreStock }</b></span></td>
+ 												<td><span style="color: #1cc88a;"><b>${p.prodWarehouseStock }</b></span></td>
  												<td><input type="text" value="0" class="inputStock" style="width: 50px;"></td>
  											</tr>
  										</c:forEach>

@@ -401,10 +401,10 @@ $(function () {
  												<td>${p.PRODCATEGORY }</td>
  												<td>${p.PRODMANUFACTURER }</td>
  												<td>${p.PRODPRICE }</td>
- 												<td>${p.PRODSTOCK }</td>
- 												<td>${p.PRODSTORESTOCK }</td>
- 												<td>${p.PRODWAREHOUSESTOCK }</td>
- 												<td>${p.POSSTOCK }</td>
+ 												<td><b>${p.PRODSTOCK }</b></td>
+ 												<td><span style="color: #4e73df;"><b>${p.PRODSTORESTOCK }</b></span></td>
+ 												<td><span style="color: #1cc88a;"><b>${p.PRODWAREHOUSESTOCK }</b></span></td>
+ 												<td><span style="color: #e74a3b;"><b>${p.POSSTOCK }</b></span></td>
  												<td><input type="text" value="0" class="inputStock" style="width: 50px;"></td>
  												<input type="hidden" value="${p.POSINFONUM }" class="posInfoNum">
  											</tr>
