@@ -220,7 +220,7 @@ public class ProdDAO {
 		int cnt = 0;
 		try {
 			ProdMapper mapper = ss.getMapper(ProdMapper.class);
-			cnt = mapper.OneStoreAndWarehouseStockUpdate(info);
+			cnt = mapper.OneWarehouseToStoreStockUpdate(info);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

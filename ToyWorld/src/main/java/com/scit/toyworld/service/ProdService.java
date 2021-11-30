@@ -158,7 +158,6 @@ public class ProdService {
 		return check;
 	}
 	
-	@SuppressWarnings("unlikely-arg-type")
 	public String storeToWarehouseReg(int positionNum, List<String> SaveProdNumList, List<Integer> SaveStockList
 			,List<Integer> SavePosInfoNumList) {
 		
@@ -173,7 +172,7 @@ public class ProdService {
 		}
 		
 		ArrayList<InfoVO> checkList = dao.checkPosNumAndProdNum(positionNum);
-		ArrayList<Integer> indexList = new ArrayList<Integer>();
+//		ArrayList<Integer> indexList = new ArrayList<Integer>();
 		
 		if (checkList.isEmpty()) {
 			dao.RegInfo(list);
@@ -187,7 +186,7 @@ public class ProdService {
 						dao.OneStoreAndWarehouseStockUpdate(list.get(j));
 						list.get(j).setPosInfoNum(checkList.get(i).getPosInfoNum());
 						dao.OnePosStockUpdate2(list.get(j));
-						indexList.add(j);
+//						indexList.add(j);
 						break;
 					} else {
 						continue;
@@ -195,19 +194,14 @@ public class ProdService {
 				}
 			}
 			
-			for (int i = 0; i < indexList.size(); i++) {
-				list.remove(indexList.get(i));
-			}
-			
-			dao.RegInfo(list);
-			dao.posStockUpdate(list);
-			dao.StoreAndWarehouseStockUpdate(list);
+//			dao.RegInfo(list);
+//			dao.posStockUpdate(list);
+//			dao.StoreAndWarehouseStockUpdate(list);
 		}
 		
 		return "redirect:/prod/wareHouse";
 	}
 	
-	@SuppressWarnings("unlikely-arg-type")
 	public String warehouseToStoreReg(int positionNum, List<String> SaveProdNumList, List<Integer> SaveStockList
 			,List<Integer> SavePosInfoNumList) {
 		
@@ -222,7 +216,7 @@ public class ProdService {
 		}
 		
 		ArrayList<InfoVO> checkList = dao.checkPosNumAndProdNum(positionNum);
-		ArrayList<Integer> indexList = new ArrayList<Integer>();
+//		ArrayList<Integer> indexList = new ArrayList<Integer>();
 		
 		if (checkList.isEmpty()) {
 			dao.RegInfo(list);
@@ -236,19 +230,19 @@ public class ProdService {
 						dao.OneWarehouseToStoreStockUpdate(list.get(j));
 						list.get(j).setPosInfoNum(checkList.get(i).getPosInfoNum());
 						dao.OnePosStockUpdate2(list.get(j));
-						indexList.add(j);
+//						indexList.add(j);
 						break;
 					} else {
 						continue;
 					}
 				}
 			}
-			for (int i = 0; i < indexList.size(); i++) {
-				list.remove(indexList.get(i));
-				dao.RegInfo(list);
-				dao.posStockUpdate(list);
-				dao.WarehouseToStoreStockUpdate(list);
-			}
+//			for (int i = 0; i < indexList.size(); i++) {
+//				list.remove(indexList.get(i));
+//				dao.RegInfo(list);
+//				dao.posStockUpdate(list);
+//				dao.WarehouseToStoreStockUpdate(list);
+//			}
 			
 		}
 		
